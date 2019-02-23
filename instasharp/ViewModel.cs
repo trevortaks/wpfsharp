@@ -18,8 +18,8 @@ namespace instasharp
             }
         }
         public ViewModel() {
-            Task.Run(()=>populateFeed());
-            //loadList();
+            //Task.Run(()=>populateFeed());
+            loadList();
         }
 
         public void loadList(){
