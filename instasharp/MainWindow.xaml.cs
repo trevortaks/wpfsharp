@@ -19,19 +19,85 @@ namespace instasharp
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
     
     public partial class MainWindow : Window
     {
-       //User currentUser = null;
+
+       User currentUser = null;
+        List<Post> posts = new List<Post>();
         public ViewModel _model = new ViewModel();
+
+        public bool VideoIsPlaying = false;
+
         public MainWindow()
         {
 
             InitializeComponent();
+            
             DataContext = _model;
-            var a = 1;
+            gridHome.DataContext = _model;
+            
+            // Create the binding.
+            CommandBinding binding = new CommandBinding(MediaCommands.Play);
+            // Attach the event handler.
+            binding.Executed += Play_Executed;
+            // Register the binding.
+            this.CommandBindings.Add(binding);
+            
+           /*currentUser = new User("trevortaks", "tsitsiscoco");
+            Task.Run(() => populateFeed()).ContinueWith((t) => {
+                icPost.ItemsSource = posts;
+            }, 
+            TaskScheduler.FromCurrentSynchronizationContext()
+            );
+
+            var a = 1;*/
         }
-           
+
+        private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("New command triggered by " + e.Source.ToString());
+        }
+
+        public async Task populateFeed()
+        {
+
+            var feed = await currentUser.getFeed();
+            //List<Post> posts = new List<Post>();
+            if (feed.Succeeded)
+            {
+
+                foreach (var media in feed.Value.Medias)
+                {
+                    int likes = media.LikesCount;
+                    string captionT = media.Caption.Text;
+                    string comments = media.CommentsCount;
+                    string name = media.User.UserName;
+                    bool isImage = false;
+                    if (media.MediaType.ToString() == "image") isImage = true;
+                    List<string> imgURLs = new List<string>();
+                    foreach (var item in media.Images)
+                        imgURLs.Add(item.URI);
+                    posts.Add(new Post()
+                    {
+                        likesCount = likes,
+                        caption = captionT,
+                        commentsCount = comments,
+                        userName = name,
+                        isImage = isImage
+                    });
+
+                    var a = 0;
+
+                }
+
+            }
+
+        }
+
+       // private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e) { 
+       //     e.CanExecute = (meVideo != null)
+        //}
+        //public void New
     }
 }

@@ -2,39 +2,69 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace instasharp
 {
-    public class ViewModel
+    public class ViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Post> posts = new ObservableCollection<Post>();
-        public ObservableCollection<Post> post
-        {
-           get {
-                return posts;
+        User currentUser;
+        //CommandBinding simpleCommand;
+        private ICommand _likePicCommand;
+
+        public ICommand likePic {
+            get { return _likePicCommand; }
+            set{
+                _likePicCommand = value;
+                OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
+        public ObservableCollection<Post> posts {
+            get { return _posts; }
+            set { _posts = value;
+            OnPropertyChanged();
+            }
+        }
+   
         public ViewModel() {
-            //Task.Run(()=>populateFeed());
+            currentUser = new User("trevortaks", "tsitsiscoco");
+            //Task.Run(() => populateFeed());
+            Task.Run(() => populateFeed()).ContinueWith((t) =>
+            {
+                
+            },
+            TaskScheduler.FromCurrentSynchronizationContext()
+            );
+            
             loadList();
+            //post = new ObservableCollection<Post>();
+            //post = posts;
+             _likePicCommand = new Commands();
+            
         }
 
-        public void loadList(){
+        private void loadList(){
          
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount =  300,
                 caption = "This is a caption",
                 commentsCount = "200",
                 userName = "trevortals",
                 url = "/assets/image.jpg",
-                isImage = true
+                isImage = true,
+                mediaID = "200"
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -42,20 +72,22 @@ namespace instasharp
                 userName = "trevorts",
                 url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image2.jpg",
                 //url = "/assets/image2.jpg",
-                isImage = true
+                isImage = true,
+                mediaID = "100"
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 60,
                 caption = "This is a caption 3",
                 commentsCount = "20",
                 userName = "trs",
                 url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\video2.mp4",
-                isImage = false
+                isImage = false,
+                mediaID = "300"
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -63,10 +95,11 @@ namespace instasharp
                 userName = "trevorts",
                 url = "/assets/video_image.jpg",
                 //url = "/assets/image3.jpg",
-                isImage = true
+                isImage = true,
+                mediaID = "400"
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -74,7 +107,8 @@ namespace instasharp
                 userName = "trevorts",
                 //url = "/assets/video_image.jpg"
                 url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image4.jpg",
-                isImage = true
+                isImage = true,
+                mediaID = "500"
             });
 
           // MainWindow.icPost.ItemsSource = posts;
@@ -82,43 +116,105 @@ namespace instasharp
 
         public async Task populateFeed()
         {
-            User currentUser = new User("trevortaks", "tsitsiscoco");
+            
             var feed = await currentUser.getFeed();
+
+            var b = 0;
             //List<Post> posts = new List<Post>();
             if (feed.Succeeded)
             {
 
                 foreach (var media in feed.Value.Medias)
                 {
+                    var id = media.InstaIdentifier;
                     int likes = media.LikesCount;
                     string captionT = media.Caption.Text;
                     string comments = media.CommentsCount;
                     string name = media.User.UserName;
+                    bool isLiked = media.HasLiked;
+                    bool isImage = false;
+                    if (media.MediaType.ToString() == "image") isImage = true;
                     List<string> imgURLs = new List<string>();
                     foreach (var item in media.Images)
                         imgURLs.Add(item.URI);
-                    posts.Add(new Post()
+                    _posts.Add(new Post()
                     {
+                        mediaID = id,
+                        isLiked = isLiked,
                         likesCount = likes,
                         caption = captionT,
                         commentsCount = comments,
-                        userName = name
+                        userName = name,
+                        isImage = isImage
                     });
+
+                    var a = 0;
+                    
                 }
 
             }
-
         }
 
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        //private object mediaID;
+        public void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+        public void likeMedia(string mediaID)
+        {
+            var result = Task.Run(() => currentUser.likePost(mediaID)).GetAwaiter().GetResult();
+            //if(result)
+        }
+
+        public ICommand Like
+        {
+            get;
+            private set;
+        }
+
+
+        /*internal void likeMedia(string mediaID)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 
     public class Post
     {
+        public string mediaID { get; set; }
         public int likesCount { get; set; }
         public string caption { get; set; }
         public string commentsCount { get; set; }
         public string userName { get; set; }
         public string url { get; set; }
         public bool isImage { get; set; }
+        public bool isLiked { get; set; }
+    }
+
+    public class joinConverter : IMultiValueConverter {
+
+        public object Convert(object[] values, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            return values.Clone();
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+    
     }
 }
