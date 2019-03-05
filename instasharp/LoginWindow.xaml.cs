@@ -31,7 +31,8 @@ namespace instasharp
             if (user.loginResult == "Success")
             {
                 lblStatus.Content = user.loginResult;
-                MainWindow window = new MainWindow();
+                ViewModel model = new ViewModel(user);
+                MainWindow window = new MainWindow(model);
                 window.Show();
                 this.Close();
             }

@@ -34,8 +34,8 @@ namespace instasharp
             }
         }
    
-        public ViewModel() {
-            currentUser = new User("trevortaks", "tsitsiscoco");
+        public ViewModel(User user) {
+            currentUser = user;
             //Task.Run(() => populateFeed());
             Task.Run(() => populateFeed()).ContinueWith((t) =>
             {

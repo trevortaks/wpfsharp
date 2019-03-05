@@ -25,11 +25,11 @@ namespace instasharp
 
        User currentUser = null;
         List<Post> posts = new List<Post>();
-        public ViewModel _model = new ViewModel();
+       // public ViewModel _model = new ViewModel();
 
         public bool VideoIsPlaying = false;
 
-        public MainWindow()
+        public MainWindow(ViewModel _model)
         {
 
             InitializeComponent();
@@ -44,9 +44,10 @@ namespace instasharp
             // Register the binding.
             this.CommandBindings.Add(binding);
             
-           /*currentUser = new User("trevortaks", "tsitsiscoco");
+           /*
             Task.Run(() => populateFeed()).ContinueWith((t) => {
                 icPost.ItemsSource = posts;
+                
             }, 
             TaskScheduler.FromCurrentSynchronizationContext()
             );
