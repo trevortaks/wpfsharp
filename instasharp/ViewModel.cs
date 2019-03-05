@@ -82,7 +82,6 @@ namespace instasharp
 
         public async Task populateFeed()
         {
-            User currentUser = new User("trevortaks", "tsitsiscoco");
             var feed = await currentUser.getFeed();
             //List<Post> posts = new List<Post>();
             if (feed.Succeeded)
