@@ -24,12 +24,14 @@ namespace instasharp
     public partial class MainWindow : Window
     {
        //User currentUser = null;
-        public ViewModel _model = new ViewModel();
+        public ViewModel _model;
         public MainWindow()
         {
 
             InitializeComponent();
+            _model = new ViewModel();
             DataContext = _model;
+            //ppLogin.Visibility 
             var a = 1;
         }
            

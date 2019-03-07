@@ -10,21 +10,27 @@ namespace instasharp
 {
     public class ViewModel
     {
-        private ObservableCollection<Post> posts = new ObservableCollection<Post>();
+        User _currentUser;
+        private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> post
         {
            get {
-                return posts;
+                return _posts;
             }
         }
+
         public ViewModel() {
-            Task.Run(()=>populateFeed());
-            //loadList();
+            //_currentUser = new User("trevortaks", "sti");
+            //var feed = Task.Run(()=>populateFeed()).GetAwaiter().GetResult();
+            //if(!feed) loadList();
+            loadList();
         }
+
+        
 
         public void loadList(){
          
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount =  300,
                 caption = "This is a caption",
@@ -34,7 +40,7 @@ namespace instasharp
                 isImage = true
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -45,7 +51,7 @@ namespace instasharp
                 isImage = true
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 60,
                 caption = "This is a caption 3",
@@ -55,7 +61,7 @@ namespace instasharp
                 isImage = false
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -66,7 +72,7 @@ namespace instasharp
                 isImage = true
             });
 
-            posts.Add(new Post()
+            _posts.Add(new Post()
             {
                 likesCount = 30,
                 caption = "This is a caption 2",
@@ -80,9 +86,9 @@ namespace instasharp
           // MainWindow.icPost.ItemsSource = posts;
         }
 
-        public async Task populateFeed()
+        public async Task<bool> populateFeed()
         {
-            var feed = await currentUser.getFeed();
+            var feed = await _currentUser.getFeed();
             //List<Post> posts = new List<Post>();
             if (feed.Succeeded)
             {
@@ -96,7 +102,7 @@ namespace instasharp
                     List<string> imgURLs = new List<string>();
                     foreach (var item in media.Images)
                         imgURLs.Add(item.URI);
-                    posts.Add(new Post()
+                    _posts.Add(new Post()
                     {
                         likesCount = likes,
                         caption = captionT,
@@ -104,9 +110,9 @@ namespace instasharp
                         userName = name
                     });
                 }
-
+                return true;
             }
-
+            return false;
         }
 
     }

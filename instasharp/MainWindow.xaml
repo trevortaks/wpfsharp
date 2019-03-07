@@ -2,15 +2,23 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="InstaWPF" Height="750" Width="1250">
+    <Window.Resources>
+        <FontFamily x:Key="FontAwesome">./fonts/FontAwesome.otf#FontAwesome</FontFamily>
+        <FontFamily x:Key="FontAwesomeRegular">./fonts/FontAwesome5FreeRegular.otf#Font Awesome 5 Free Regular</FontFamily>
+        <FontFamily x:Key="FontAwesomeSolid">./fonts/FontAwesome5FreeSolid.otf#Font Awesome 5 Free Solid</FontFamily>
+        <FontFamily x:Key="FontAwesomeBrands">./fonts/FontAwesome5BrandsRegular400.otf#Font Awesome 5 Brands Regular</FontFamily>
+    </Window.Resources>
     
     <Grid Background="#eee" >
+
+
         <!--<Label Content="Instagram" Height="60" Margin="0,0,0,675" HorizontalContentAlignment="Center" 
                FontSize="20" Panel.ZIndex="1" Background="#ddd" VerticalContentAlignment="Top"/> -->
         <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ItemsControl Name="icPost" ItemsSource="{Binding post}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel />
+                        <UniformGrid />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             
@@ -89,9 +97,9 @@
 
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                             <StackPanel Orientation="Horizontal" Height="30">
-                                <Button Content="&#xf004;" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent" />
-                                <Button Content="" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent" />
-                                <Button Content="&#xf1d8;" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent" />
+                                <Button Content="&#xf004;" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" />
+                                <Button Content="" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" />
+                                <Button Content="&#xf1d8;" Width="50" Background="Transparent" FontSize="20" FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" />
                             </StackPanel>
                             <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                             <Label x:Name="lblLikes" FontFamily="{StaticResource FontAwesome}">
@@ -108,5 +116,7 @@
                 
             </ItemsControl>
         </ScrollViewer>
+        
+       
     </Grid>
 </Window>
