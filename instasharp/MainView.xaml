@@ -96,7 +96,7 @@
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                                 <StackPanel Orientation="Horizontal" Height="30">
                                     <Button x:Name="btnLike" Content="&#xF004;" Width="50" Background="Transparent" FontSize="20" 
-            								FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent"
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent"
             								Command="{Binding DataContext.likePic, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" >
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
@@ -106,12 +106,12 @@
                                         </Button.CommandParameter>
                                     </Button>
                                     <Button x:Name="btnComment" Content="&#xF075;" Width="50" Background="Transparent" FontSize="20" 
-            								FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent" />
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" />
                                     <Button x:Name="btnDM" Content="&#xF1D8;" Width="50" Background="Transparent" FontSize="20" 
-            								FontFamily="{StaticResource FontAwesome}" BorderBrush="Transparent" />
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" />
                                 </StackPanel>
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
-                                <Label x:Name="lblLikes" FontFamily="{StaticResource FontAwesome}">
+                                <Label x:Name="lblLikes" FontFamily="{StaticResource FontAwesomeRegular}">
                                     <TextBlock Text="{Binding likesCount, StringFormat=\{0\} likes}"/>
                                 </Label>
                                 <Label x:Name="lblCaption" Content="{Binding caption}" Height="50"/>

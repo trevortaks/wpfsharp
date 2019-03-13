@@ -23,18 +23,18 @@ namespace instasharp
     public partial class MainWindow : Window
     {
 
-       User currentUser = null;
-        List<Post> posts = new List<Post>();
-       // public ViewModel _model = new ViewModel();
+        User currentUser = new User("trevortaks", "tsitsiscoco");
+       List<Post> posts = new List<Post>();
+       public ViewModel _model;
 
         public bool VideoIsPlaying = false;
 
-        public MainWindow(ViewModel _model)
+        public MainWindow()
         {
 
             InitializeComponent();
-            
-            DataContext = _model;
+            _model = new ViewModel(currentUser);
+            //DataContext = _model;
             gridHome.DataContext = _model;
             
             // Create the binding.
@@ -44,15 +44,15 @@ namespace instasharp
             // Register the binding.
             this.CommandBindings.Add(binding);
             
-           /*
-            Task.Run(() => populateFeed()).ContinueWith((t) => {
+           
+           /* Task.Run(() => populateFeed()).ContinueWith((t) => {
                 icPost.ItemsSource = posts;
                 
             }, 
             TaskScheduler.FromCurrentSynchronizationContext()
-            );
+            );*/
 
-            var a = 1;*/
+            //var a = 1;
         }
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -60,41 +60,46 @@ namespace instasharp
             MessageBox.Show("New command triggered by " + e.Source.ToString());
         }
 
-        public async Task populateFeed()
+        private void spProfile_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
 
-            var feed = await currentUser.getFeed();
-            //List<Post> posts = new List<Post>();
-            if (feed.Succeeded)
-            {
-
-                foreach (var media in feed.Value.Medias)
-                {
-                    int likes = media.LikesCount;
-                    string captionT = media.Caption.Text;
-                    string comments = media.CommentsCount;
-                    string name = media.User.UserName;
-                    bool isImage = false;
-                    if (media.MediaType.ToString() == "image") isImage = true;
-                    List<string> imgURLs = new List<string>();
-                    foreach (var item in media.Images)
-                        imgURLs.Add(item.URI);
-                    posts.Add(new Post()
-                    {
-                        likesCount = likes,
-                        caption = captionT,
-                        commentsCount = comments,
-                        userName = name,
-                        isImage = isImage
-                    });
-
-                    var a = 0;
-
-                }
-
-            }
-
         }
+
+        //public async Task populateFeed()
+        //{
+
+        //    var feed = await currentUser.getFeed();
+        //    //List<Post> posts = new List<Post>();
+        //    if (feed.Succeeded)
+        //    {
+
+        //        foreach (var media in feed.Value.Medias)
+        //        {
+        //            int likes = media.LikesCount;
+        //            string captionT = media.Caption.Text;
+        //            string comments = media.CommentsCount;
+        //            string name = media.User.UserName;
+        //            bool isImage = false;
+        //            if (media.MediaType.ToString() == "image") isImage = true;
+        //            List<string> imgURLs = new List<string>();
+        //            foreach (var item in media.Images)
+        //                imgURLs.Add(item.URI);
+        //            posts.Add(new Post()
+        //            {
+        //                likesCount = likes,
+        //                caption = captionT,
+        //                commentsCount = comments,
+        //                userName = name,
+        //                isImage = isImage
+        //            });
+
+        //            var a = 0;
+
+        //        }
+        
+        //    }
+
+        //}
 
        // private void Play_CanExecute(object sender, CanExecuteRoutedEventArgs e) { 
        //     e.CanExecute = (meVideo != null)

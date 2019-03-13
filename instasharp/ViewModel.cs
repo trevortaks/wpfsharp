@@ -15,14 +15,41 @@ namespace instasharp
     public class ViewModel : INotifyPropertyChanged
     {
         User currentUser;
-        //CommandBinding simpleCommand;
+        string name = "Trevor Takawira";
+        string imageSource = "/assets/image.jpg";
+
+        public ICommand Like
+        {
+            get;
+            private set;
+        }
+
         private ICommand _likePicCommand;
 
         public ICommand likePic {
             get { return _likePicCommand; }
             set{
                 _likePicCommand = value;
-                OnPropertyChanged();
+                OnPropertyChanged("likePic");
+            }
+        }
+
+        private ICommand _collapseMenu;
+        public ICommand collapseMenu {
+            get { return _collapseMenu; }
+            set {
+                _collapseMenu = value;
+                OnPropertyChanged("collapseMenu");
+            }
+        }
+
+        private bool _showMenu = false;
+        public bool showMenu
+        {
+            get { return _showMenu; }
+            set {
+                _showMenu = value;
+                OnPropertyChanged("showMenu");
             }
         }
 
@@ -36,7 +63,7 @@ namespace instasharp
    
         public ViewModel(User user) {
             currentUser = user;
-            //Task.Run(() => populateFeed());
+            //Task.Run(() => populateFeed()).GetAwaiter().GetResult();
             Task.Run(() => populateFeed()).ContinueWith((t) =>
             {
                 
@@ -48,6 +75,7 @@ namespace instasharp
             //post = new ObservableCollection<Post>();
             //post = posts;
              _likePicCommand = new Commands();
+             _collapseMenu = new collapseMenus();
             
         }
 
@@ -114,7 +142,7 @@ namespace instasharp
           // MainWindow.icPost.ItemsSource = posts;
         }
 
-        public async Task populateFeed()
+        public async Task<bool> populateFeed()
         {
             
             var feed = await currentUser.getFeed();
@@ -151,8 +179,9 @@ namespace instasharp
                     var a = 0;
                     
                 }
-
+                return true;
             }
+            return false; 
         }
 
         private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -177,11 +206,7 @@ namespace instasharp
             //if(result)
         }
 
-        public ICommand Like
-        {
-            get;
-            private set;
-        }
+       
 
 
         /*internal void likeMedia(string mediaID)

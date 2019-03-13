@@ -26,6 +26,21 @@ namespace instasharp
         }
     }
 
+    class collapseMenus : ICommand
+    {
+        public bool CanExecute(object Parameter) {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(object Parameter) {
+            ViewModel _view = (ViewModel)Parameter;
+            _view.showMenu = !_view.showMenu;
+            var a = 0;
+        }
+    }
+
     class PlayCommand : ICommand {
         public ViewModel _view;
         public bool CanExecute(object parameter) {
