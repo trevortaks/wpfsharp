@@ -15,9 +15,18 @@ namespace instasharp
     public class ViewModel : INotifyPropertyChanged
     {
         User currentUser;
-        string name = "Trevor Takawira";
+        string _name = "trevortaks";
+        public string name {
+            get { return _name;}
+            private set 
+            {
+                _name = value;
+                OnPropertyChanged("name");
+            }
+        }
+        string pwd = "";
         string imageSource = "/assets/image.jpg";
-
+        
         public ICommand Like
         {
             get;
@@ -53,16 +62,36 @@ namespace instasharp
             }
         }
 
+        private ICommand _changeView;
+        public ICommand changeView
+        {
+            get { return _changeView; }
+            set {
+                _changeView = value;
+                OnPropertyChanged("changeView");
+            }
+        }
+
+        private int _selectedView = 1;
+        public int selectedView
+        {
+            get { return _selectedView; }
+            set {
+                _selectedView = value;
+                OnPropertyChanged("selectedView");
+            }
+        }
+
         private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> posts {
             get { return _posts; }
             set { _posts = value;
-            OnPropertyChanged();
+            OnPropertyChanged("posts");
             }
         }
    
-        public ViewModel(User user) {
-            currentUser = user;
+        public ViewModel() {
+            currentUser = new User(name, pwd);
             //Task.Run(() => populateFeed()).GetAwaiter().GetResult();
             Task.Run(() => populateFeed()).ContinueWith((t) =>
             {
@@ -76,11 +105,12 @@ namespace instasharp
             //post = posts;
              _likePicCommand = new Commands();
              _collapseMenu = new collapseMenus();
+             _changeView = new changeViews();
             
         }
 
         private void loadList(){
-         
+            
             _posts.Add(new Post()
             {
                 likesCount =  300,

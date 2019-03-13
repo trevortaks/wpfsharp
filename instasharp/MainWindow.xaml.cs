@@ -23,7 +23,7 @@ namespace instasharp
     public partial class MainWindow : Window
     {
 
-        User currentUser = new User("trevortaks", "tsitsiscoco");
+       // User currentUser = new User("trevortaks", "tsitsiscoco");
        List<Post> posts = new List<Post>();
        public ViewModel _model;
 
@@ -33,10 +33,12 @@ namespace instasharp
         {
 
             InitializeComponent();
-            _model = new ViewModel(currentUser);
+            _model = new ViewModel();
             //DataContext = _model;
             gridHome.DataContext = _model;
-            
+            ccSidebar.DataContext = _model;
+            //ccMainPanel.Content = _model;
+            //ccMainPanel.DataContext = _model;
             // Create the binding.
             CommandBinding binding = new CommandBinding(MediaCommands.Play);
             // Attach the event handler.

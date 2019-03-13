@@ -41,6 +41,26 @@ namespace instasharp
         }
     }
 
+    class changeViews : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter) 
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter) {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            var selectedOptio = values[1].ToString();
+            var selectedOption = Convert.ToInt32(selectedOptio);
+
+            _view.selectedView = selectedOption;
+        }
+    }
+
     class PlayCommand : ICommand {
         public ViewModel _view;
         public bool CanExecute(object parameter) {

@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace instasharp
+namespace instasharp.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for ProfileView.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class ProfileView : UserControl
     {
-        User currentUser = new User("trevortaks", "tsitsiscoco");
-        public ViewModel _model;
-
-        public MainView()
+        public ProfileView()
         {
             InitializeComponent();
-            _model = new ViewModel(currentUser);
-            //DataContext = _model;
-            gdMain.DataContext = _model;
-
         }
     }
 }
