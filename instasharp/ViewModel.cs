@@ -92,7 +92,7 @@ namespace instasharp
    
         public ViewModel() {
             currentUser = new User(name, pwd);
-            //Task.Run(() => populateFeed()).GetAwaiter().GetResult();
+
             Task.Run(() => populateFeed()).ContinueWith((t) =>
             {
                 
@@ -101,8 +101,7 @@ namespace instasharp
             );
             
             loadList();
-            //post = new ObservableCollection<Post>();
-            //post = posts;
+
              _likePicCommand = new Commands();
              _collapseMenu = new collapseMenus();
              _changeView = new changeViews();
@@ -152,7 +151,6 @@ namespace instasharp
                 commentsCount = "100",
                 userName = "trevorts",
                 url = "/assets/video_image.jpg",
-                //url = "/assets/image3.jpg",
                 isImage = true,
                 mediaID = "400"
             });
@@ -163,13 +161,10 @@ namespace instasharp
                 caption = "This is a caption 2",
                 commentsCount = "100",
                 userName = "trevorts",
-                //url = "/assets/video_image.jpg"
                 url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image4.jpg",
                 isImage = true,
                 mediaID = "500"
             });
-
-          // MainWindow.icPost.ItemsSource = posts;
         }
 
         public async Task<bool> populateFeed()
@@ -177,8 +172,6 @@ namespace instasharp
             
             var feed = await currentUser.getFeed();
 
-            var b = 0;
-            //List<Post> posts = new List<Post>();
             if (feed.Succeeded)
             {
 
@@ -214,13 +207,14 @@ namespace instasharp
             return false; 
         }
 
-        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void likeMedia(string mediaID)
         {
-            
+            var result = Task.Run(() => currentUser.likePost(mediaID)).GetAwaiter().GetResult();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        //private object mediaID;
+
         public void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             if (PropertyChanged != null)
@@ -228,21 +222,6 @@ namespace instasharp
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-
-        public void likeMedia(string mediaID)
-        {
-            var result = Task.Run(() => currentUser.likePost(mediaID)).GetAwaiter().GetResult();
-            //if(result)
-        }
-
-       
-
-
-        /*internal void likeMedia(string mediaID)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 
     public class Post
