@@ -65,35 +65,66 @@
             <Rectangle Height="1" Fill="Black" HorizontalAlignment="Stretch"/>
 
             <StackPanel Margin="0, 20, 0 ,0">
-
-                <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="{StaticResource FontAwesome}">
-                    <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text=" &#xF015;" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="30"></TextBlock>
-                        <TextBlock Text="  Home" FontSize="20" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </Label>
-
-                <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="{StaticResource FontAwesome}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" &#xF004;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
-                        <TextBlock Text="  Activity" FontSize="20" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </Label>
-
-                <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="{StaticResource FontAwesome}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" &#xF279;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
-                        <TextBlock Text="  Explore" FontSize="20"></TextBlock>
-                    </StackPanel>
-                </Label>
-
-                <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="{StaticResource FontAwesome}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" &#xF1D8;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
-                        <TextBlock Text="  Messaging" FontSize="20"></TextBlock>
-                    </StackPanel>
-                </Label>
-
+                <Button Background="Transparent" BorderBrush="Transparent"
+                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                            <Binding Source="1" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text=" &#xF015;" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="30"></TextBlock>
+                            <TextBlock Text="  Home" FontSize="20" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Label>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent"
+                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                            <Binding Source="3" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text=" &#xF004;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                            <TextBlock Text="  Activity" FontSize="20" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Label>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent"
+                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                            <Binding Source="4" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text=" &#xF279;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                            <TextBlock Text="  Explore" FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Label>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent"
+                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                            <Binding Source="5" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <Label Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text=" &#xF1D8;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                            <TextBlock Text="  Messaging" FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Label>
+                </Button>
             </StackPanel>
 
         </StackPanel>
