@@ -9,12 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace instasharp
 {
     public class ViewModel : INotifyPropertyChanged
     {
         User currentUser;
+        /*
+         * 
+         */
         string _name = "trevortaks";
         public string name {
             get { return _name;}
@@ -24,7 +28,6 @@ namespace instasharp
                 OnPropertyChanged("name");
             }
         }
-        string pwd = "";
         string imageSource = "/assets/image.jpg";
         
         public ICommand Like
@@ -85,28 +88,37 @@ namespace instasharp
         private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> posts {
             get { return _posts; }
-            set { _posts = value;
-            OnPropertyChanged("posts");
-            }
+            //set { _posts = value;
+            //OnPropertyChanged("posts");
+            //}
         }
    
         public ViewModel() {
-            currentUser = new User(name, pwd);
-
-            Task.Run(() => populateFeed()).ContinueWith((t) =>
-            {
-                
-            },
-            TaskScheduler.FromCurrentSynchronizationContext()
-            );
-            
-            loadList();
-
+            currentUser = new User("", "");
+            //if(currentUser.)
+            //Task.Run(() => populateFeed()).ContinueWith((t) =>
+            //{
+            //    loadList();
+            //},
+            //TaskScheduler.FromCurrentSynchronizationContext()
+            //);
+            loadFeed();
              _likePicCommand = new Commands();
              _collapseMenu = new collapseMenus();
              _changeView = new changeViews();
             
         }
+
+       private void loadFeed(){
+           if (currentUser.login)
+           {
+               App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+           }
+           else
+           {
+               loadList();
+           }
+       }
 
         private void loadList(){
             
@@ -167,7 +179,7 @@ namespace instasharp
             });
         }
 
-        public async Task<bool> populateFeed()
+        public async Task populateFeed()
         {
             
             var feed = await currentUser.getFeed();
@@ -177,34 +189,34 @@ namespace instasharp
 
                 foreach (var media in feed.Value.Medias)
                 {
-                    var id = media.InstaIdentifier;
-                    int likes = media.LikesCount;
-                    string captionT = media.Caption.Text;
-                    string comments = media.CommentsCount;
-                    string name = media.User.UserName;
-                    bool isLiked = media.HasLiked;
-                    bool isImage = false;
-                    if (media.MediaType.ToString() == "image") isImage = true;
-                    List<string> imgURLs = new List<string>();
-                    foreach (var item in media.Images)
-                        imgURLs.Add(item.URI);
-                    _posts.Add(new Post()
+                    bool isImage = true;
+                    if (media.MediaType.ToString() == "Video") isImage = false;
+                    try
                     {
-                        mediaID = id,
-                        isLiked = isLiked,
-                        likesCount = likes,
-                        caption = captionT,
-                        commentsCount = comments,
-                        userName = name,
-                        isImage = isImage
-                    });
+                        var one = new Post()
+                        {
+                            mediaID = media.InstaIdentifier,
+                            isLiked = media.HasLiked,
+                            likesCount = media.LikesCount,
+                            caption = media.Caption.Text,
+                            commentsCount = media.CommentsCount,
+                            userName = media.User.UserName,
+                            isImage = isImage,
+                            date = media.TakenAt
 
-                    var a = 0;
-                    
+                        };
+                        _posts.Add(one);
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        continue;
+                    }
                 }
-                return true;
             }
-            return false; 
+            else 
+            {
+                var error = feed.Info.Message;
+            }
         }
 
         public void likeMedia(string mediaID)
@@ -234,6 +246,7 @@ namespace instasharp
         public string url { get; set; }
         public bool isImage { get; set; }
         public bool isLiked { get; set; }
+        public DateTime date { get; set; }
     }
 
     public class joinConverter : IMultiValueConverter {

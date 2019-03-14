@@ -14,7 +14,7 @@
             <ItemsControl x:Name="icPost" ItemsSource="{Binding posts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid />
+                        <WrapPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

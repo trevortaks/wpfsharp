@@ -18,6 +18,7 @@ namespace instasharp
         private static IInstaApi _instaApi;
         IResult<InstaCurrentUser> _currentUser = null;
         public string loginResult { get; private set; }
+        public bool login { get; private set; }
 
         public User(string uname, string pwd) {
 
@@ -27,16 +28,7 @@ namespace instasharp
             }
             else
             {
-                var result = Task.Run(() => Login(uname, pwd)).GetAwaiter().GetResult();
-
-                if (result)
-                {
-                    loginResult = "Success";
-                }
-               /* else
-                {
-                    loginResult = "Wrong Password or Email";
-                }*/
+                login = Task.Run(() => Login(uname, pwd)).GetAwaiter().GetResult();
             }
         }
 
