@@ -16,19 +16,20 @@ namespace instasharp
     public class ViewModel : INotifyPropertyChanged
     {
         User currentUser;
-        /*
-         * 
-         */
-        string _name = "trevortaks";
-        public string name {
-            get { return _name;}
-            private set 
-            {
-                _name = value;
-                OnPropertyChanged("name");
-            }
+
+        string _name;
+        public string name
+        {
+            get;
+            private set;
         }
-        string imageSource = "/assets/image.jpg";
+
+        string _commentsNum;
+        public string commentsNum
+        {
+            get;
+            private set;
+        }
         
         public ICommand Like
         {
@@ -37,7 +38,6 @@ namespace instasharp
         }
 
         private ICommand _likePicCommand;
-
         public ICommand likePic {
             get { return _likePicCommand; }
             set{
@@ -85,34 +85,91 @@ namespace instasharp
             }
         }
 
+        private int _selectedPopup = 1;
+        public int selectedPopup
+        {
+            get { return _selectedPopup; }
+            set {
+                _selectedPopup = value;
+                OnPropertyChanged("selectedPopup");
+            }
+        }
+
+        private ICommand _loadComment;
+        public ICommand loadComment 
+        {
+            get { return _loadComment; }
+            set {
+                _loadComment = value;
+                OnPropertyChanged("loadComments");
+            }
+        }
+
+        private ICommand _loadLiker;
+        public ICommand loadLiker 
+        {
+            get { return _loadLiker; }
+            set {
+                _loadLiker = value;
+                OnPropertyChanged("loadLikers");
+            }
+        }
+
+        private ICommand _closePopup;
+        public ICommand closePopup {
+            get { return _closePopup; }
+            set {
+                _closePopup = value;
+                OnPropertyChanged("closePopup");
+            }
+        }
+
+        private ObservableCollection<string> _likers = new ObservableCollection<string>();
+        public ObservableCollection<string> likers
+        {
+            get { return _likers; }
+        }
+
+        private ObservableCollection<Comment> _comments = new ObservableCollection<Comment>();
+        public ObservableCollection<Comment> comments
+        {
+            get { return _comments; }
+        }
+
         private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> posts {
             get { return _posts; }
-            //set { _posts = value;
-            //OnPropertyChanged("posts");
-            //}
         }
-   
+
+        private bool _popupShow = false;
+        public bool popupShow
+        {   get { return _popupShow; }
+            set {
+                _popupShow = value;
+                OnPropertyChanged("popupShow");
+            }
+        }
+
         public ViewModel() {
-            currentUser = new User("", "");
-            //if(currentUser.)
-            //Task.Run(() => populateFeed()).ContinueWith((t) =>
-            //{
-            //    loadList();
-            //},
-            //TaskScheduler.FromCurrentSynchronizationContext()
-            //);
+            name = "trevortaks";
+            commentsNum = String.Format("11 \n");
+            currentUser = new User(name, "");
             loadFeed();
+            
              _likePicCommand = new Commands();
              _collapseMenu = new collapseMenus();
              _changeView = new changeViews();
+             _loadComment = new loadComments();
+             _loadLiker = new loadLikers();
+             _closePopup = new closePopup();
             
         }
 
-       private void loadFeed(){
+        private void loadFeed(){
            if (currentUser.login)
            {
                App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+               loadList();
            }
            else
            {
@@ -120,64 +177,11 @@ namespace instasharp
            }
        }
 
-        private void loadList(){
-            
-            _posts.Add(new Post()
-            {
-                likesCount =  300,
-                caption = "This is a caption",
-                commentsCount = "200",
-                userName = "trevortals",
-                url = "/assets/image.jpg",
-                isImage = true,
-                mediaID = "200"
-            });
-
-            _posts.Add(new Post()
-            {
-                likesCount = 30,
-                caption = "This is a caption 2",
-                commentsCount = "100",
-                userName = "trevorts",
-                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image2.jpg",
-                //url = "/assets/image2.jpg",
-                isImage = true,
-                mediaID = "100"
-            });
-
-            _posts.Add(new Post()
-            {
-                likesCount = 60,
-                caption = "This is a caption 3",
-                commentsCount = "20",
-                userName = "trs",
-                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\video2.mp4",
-                isImage = false,
-                mediaID = "300"
-            });
-
-            _posts.Add(new Post()
-            {
-                likesCount = 30,
-                caption = "This is a caption 2",
-                commentsCount = "100",
-                userName = "trevorts",
-                url = "/assets/video_image.jpg",
-                isImage = true,
-                mediaID = "400"
-            });
-
-            _posts.Add(new Post()
-            {
-                likesCount = 30,
-                caption = "This is a caption 2",
-                commentsCount = "100",
-                userName = "trevorts",
-                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image4.jpg",
-                isImage = true,
-                mediaID = "500"
-            });
+        public void loadPostComments(string mediaID) {
+            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateComments(mediaID); });
+            ppComments();
         }
+        
 
         public async Task populateFeed()
         {
@@ -187,35 +191,99 @@ namespace instasharp
             if (feed.Succeeded)
             {
 
-                foreach (var media in feed.Value.Medias)
-                {
-                    bool isImage = true;
-                    if (media.MediaType.ToString() == "Video") isImage = false;
-                    try
+                //foreach (var media in feed.Value.Medias)
+                //{
+                    for (int i = 0; i < 20; i++)
                     {
-                        var one = new Post()
+                        var media = feed.Value.Medias[i];
+                        bool isImage = false;
+                        string url = "";
+                        if (media.MediaType.ToString() == "Image")
                         {
-                            mediaID = media.InstaIdentifier,
-                            isLiked = media.HasLiked,
-                            likesCount = media.LikesCount,
-                            caption = media.Caption.Text,
-                            commentsCount = media.CommentsCount,
-                            userName = media.User.UserName,
-                            isImage = isImage,
-                            date = media.TakenAt
+                            isImage = true;
+                           // if (media.Images.Count > 0) url = media.Images[0].URI;
+                        }
+                        if (media.MediaType.ToString() == "Video")
+                        {
+                            //isImage = true;
+                            if (media.Videos.Count > 0) url = media.Videos[0].Url;
+                        }
+                        try
+                        {
+                            _posts.Add(new Post()
+	                            {
+	                                mediaID = media.InstaIdentifier,
+	                                isLiked = media.HasLiked,
+	                                likesCount = media.LikesCount,
+	                                caption = media.Caption.Text,
+	                                commentsCount = media.CommentsCount,
+	                                userName = media.User.UserName,
+	                                isImage = isImage,
+	                                date = media.TakenAt
+	                                //url = url
 
-                        };
-                        _posts.Add(one);
-                    }
-                    catch (System.NullReferenceException)
-                    {
-                        continue;
-                    }
-                }
+	                            }
+                            );
+                        }
+                        catch (System.NullReferenceException)
+                        {
+                            continue;
+                        }
+                  }
+                //}
             }
             else 
             {
                 var error = feed.Info.Message;
+            }
+        }
+
+        public async Task populateComments(string mediaID) 
+        {
+            _comments.Clear();
+            var commentsList = await currentUser.getComments(mediaID);
+
+            foreach (var comment in commentsList.Value.Comments)
+            {
+                _comments.Add(
+                    new Comment
+                    {
+                        userName = comment.User.UserName,
+                        comment = comment.Text
+                    }
+                    );
+            }
+        }
+
+        public void ppComments() {
+            for (int i = 0; i < 20; i++)
+            {
+                _comments.Add(new Comment
+                {
+                    userName = "user" + i,
+                    comment = "This is a comment"
+                });
+
+            }
+        }
+
+        public void ppLikers()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                _likers.Add("user" + i);
+
+            }
+        }
+
+        public async Task populateLikers(string mediaID) 
+        {
+            _likers.Clear();
+            var likersList = await currentUser.getLikers(mediaID);
+
+            foreach (var liker in likersList.Value) 
+            {
+                _likers.Add(liker.UserName);
             }
         }
 
@@ -234,6 +302,73 @@ namespace instasharp
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        private void loadList()
+        {
+
+            _posts.Add(new Post()
+            {
+                likesCount = 300,
+                caption = "This is a caption",
+                commentsCount = "200",
+                isLiked = true,
+                userName = "trevortals",
+                url = "/assets/image.jpg",
+                isImage = true,
+                mediaID = "200"
+            });
+
+            _posts.Add(new Post()
+            {
+                likesCount = 30,
+                caption = "This is a caption 2",
+                commentsCount = "100",
+                isLiked = false,
+                userName = "trevorts",
+                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image2.jpg",
+                //url = "/assets/image2.jpg",
+                isImage = true,
+                mediaID = "100"
+            });
+
+            _posts.Add(new Post()
+            {
+                likesCount = 60,
+                caption = "This is a caption 3",
+                commentsCount = "20",
+                userName = "trs",
+                isLiked = true,
+                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\video2.mp4",
+                isImage = false,
+                mediaID = "300"
+            });
+
+            _posts.Add(new Post()
+            {
+                likesCount = 30,
+                caption = "This is a caption 2",
+                commentsCount = "100",
+                userName = "trevorts",
+                isLiked = false,
+                url = "/assets/video_image.jpg",
+                isImage = true,
+                mediaID = "400"
+            });
+
+            _posts.Add(new Post()
+            {
+                likesCount = 30,
+                caption = "This is a caption 2",
+                commentsCount = "100",
+                userName = "trevorts",
+                isLiked = true,
+                url = @"C:\Users\Trevor Takawira\documents\visual studio 2012\Projects\instasharp\instasharp\assets\image4.jpg",
+                isImage = true,
+                mediaID = "500"
+            });
+        }
+
+
     }
 
     public class Post
@@ -248,6 +383,13 @@ namespace instasharp
         public bool isLiked { get; set; }
         public DateTime date { get; set; }
     }
+
+    public class Comment 
+    {
+        public string userName { get; set; }
+        public string comment { get; set; }
+    }
+
 
     public class joinConverter : IMultiValueConverter {
 

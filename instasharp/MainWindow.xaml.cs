@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,31 +26,30 @@ namespace instasharp
        List<Post> posts = new List<Post>();
        public ViewModel _model;
 
-        public bool VideoIsPlaying = false;
-
         public MainWindow()
         {
 
             InitializeComponent();
             _model = new ViewModel();
 
-            gridHome.DataContext = _model;
+            DataContext = _model;
 
-            CommandBinding binding = new CommandBinding(MediaCommands.Play);
-            // Attach the event handler.
-            binding.Executed += Play_Executed;
-            // Register the binding.
-            this.CommandBindings.Add(binding);
-            
-           
-           /* Task.Run(() => populateFeed()).ContinueWith((t) => {
-                icPost.ItemsSource = posts;
-                
-            }, 
-            TaskScheduler.FromCurrentSynchronizationContext()
-            );*/
+            //PopupWindow ppWindow= new PopupWindow(_model);
+            //ppWindow.ShowDialog();
 
-            //var a = 1;
+            //ppLogin.IsOpen = true;
+
+            //if (!ppLogin.IsOpen) 
+            //{
+            //   // dpDock.Opacity = 0;
+            //    var effect = new BlurEffect();
+            //    var current = this.Background;
+            //    effect.Radius = 5;
+            //    //dpDock.Effect = effect;
+            //    this.Background = new SolidColorBrush(Colors.DarkGray);
+            //    this.Effect = effect;
+            //    ppLogin.IsOpen = true;
+            //}
         }
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -57,41 +57,9 @@ namespace instasharp
             MessageBox.Show("New command triggered by " + e.Source.ToString());
         }
 
-        //public async Task populateFeed()
-        //{
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
 
-        //    var feed = await currentUser.getFeed();
-        //    //List<Post> posts = new List<Post>();
-        //    if (feed.Succeeded)
-        //    {
-
-        //        foreach (var media in feed.Value.Medias)
-        //        {
-        //            int likes = media.LikesCount;
-        //            string captionT = media.Caption.Text;
-        //            string comments = media.CommentsCount;
-        //            string name = media.User.UserName;
-        //            bool isImage = false;
-        //            if (media.MediaType.ToString() == "image") isImage = true;
-        //            List<string> imgURLs = new List<string>();
-        //            foreach (var item in media.Images)
-        //                imgURLs.Add(item.URI);
-        //            posts.Add(new Post()
-        //            {
-        //                likesCount = likes,
-        //                caption = captionT,
-        //                commentsCount = comments,
-        //                userName = name,
-        //                isImage = isImage
-        //            });
-
-        //            var a = 0;
-
-        //        }
-        
-        //    }
-
-        //}
-
+        }
     }
 }

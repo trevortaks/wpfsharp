@@ -8,12 +8,11 @@
     <Window.Resources>
         <vm:ViewModel x:Key="_model"/>
         <vm:joinConverter x:Key="joinConverter" />
-        <!--<vm:MainView x:Key="MainView"></vm:MainView>-->
         <DataTemplate x:Key="MainView" DataType="{x:Type vm:ViewModel}">
             <vm:MainView/>
         </DataTemplate>
         <DataTemplate x:Key="ProfileView" DataType="{x:Type vm:ViewModel}" >
-            <lib:ProfileView />
+            <vm:ProfileView />
         </DataTemplate>
         <DataTemplate x:Key="ActivityView" DataType="{x:Type vm:ViewModel}" >
             <lib:ActivityView />
@@ -27,38 +26,60 @@
         <DataTemplate x:Key="SidebarView" DataType="{x:Type vm:ViewModel}">
             <vm:SidebarView />
         </DataTemplate>
+        <DataTemplate x:Key="LoginView" DataType="{x:Type vm:ViewModel}">
+            <vm:LoginView />
+        </DataTemplate>
+        <DataTemplate x:Key="CommentsView" DataType="{x:Type vm:ViewModel}">
+            <vm:CommentsView />
+        </DataTemplate>
+        <DataTemplate x:Key="LikersView" DataType="{x:Type vm:ViewModel}">
+            <vm:LikersView />
+        </DataTemplate>
+        <BlurEffect x:Key="Blur" Radius="5"></BlurEffect>
+       
     </Window.Resources>
-    
-    <Window.CommandBindings>
-        <CommandBinding Command="MediaCommands.Play" Executed="Play_Executed" />
-        <!--<CommandBinding Command="MediaCommands.Pause" Executed="Pause_Executed" />
-        <CommandBinding Command="MediaCommands.Stop" Executed="Stop_Executed" />
-        <CommandBinding Command="{Binding RelativeSource= {RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.Like}" 
-                        Executed="DataContext.LikeMedia" 
-                        />-->
-    </Window.CommandBindings>
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding popupShow}" Value="true">
+                    <Setter Property="Effect" Value="{StaticResource Blur}" />
+                    <Setter Property="Background" Value="DarkGray" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
 
     <Grid Background="#000" Name="gridHome" >
         
-        <Popup Name="ppLogin" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Grid>
-                <Grid.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="AliceBlue" Offset="0"></GradientStop>
-                        <GradientStop Color="Aqua" Offset="1"></GradientStop>
-                    </RadialGradientBrush>
-                </Grid.Background>
-                <Label Content="Instagram" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="123" FontSize="24" FontFamily="MV Boli"/>
-                <Label Content="Username" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="99" Height="38" FontSize="18"/>
-                <Label Content="Password" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Height="25"/>
-                <TextBox Name="txtUsername" HorizontalAlignment="Left" Height="25" Margin="279,61,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
-                <PasswordBox Name="txtPassword" HorizontalAlignment="Left" Height="25" Margin="279,136,0,0" VerticalAlignment="Top" Width="150" />
-                <Label x:Name="lblStatus" x:FieldModifier="public" Content="" HorizontalAlignment="Left" Margin="110,179,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-                <Button Name="btnLogin" Content="Login" HorizontalAlignment="Left" Margin="186,230,0,0" VerticalAlignment="Top" Width="97" Height="43"/>
-
-
-            </Grid>
-        </Popup>
+            <Popup Name="ppLogin" Placement="Relative" HorizontalOffset="300" VerticalOffset="100" Width="500" Height="300"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" IsOpen="{Binding popupShow}" PopupAnimation="Fade"
+                   AllowsTransparency="True">
+                <Grid>
+                    <Border CornerRadius="100"  BorderThickness="1" Background="White" Margin="0,0,20,20" >
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" Opacity="0.8" ShadowDepth="10" RenderingBias="Quality"/>
+                    </Border.Effect>
+                        <ContentControl Name="ccLogin" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Popup}}}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource LoginView}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding selectedPopup}" Value="0">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource LikersView}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding selectedPopup}" Value="1">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource CommentsView}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding selectedPopup}" Value="2">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource LoginView}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Border>
+                </Grid>
+            </Popup>
         
         <DockPanel x:Name="dpDock">
 
@@ -69,7 +90,7 @@
                             Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
-                        <!--<Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>-->
+                        <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding selectedView}" Value="1">
                                 <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>

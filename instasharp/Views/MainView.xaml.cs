@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Vlc.DotNet.Wpf;
 
 namespace instasharp
 {
@@ -20,16 +21,12 @@ namespace instasharp
     /// </summary>
     public partial class MainView : UserControl
     {
-        //User currentUser = new User("trevortaks", "tsitsiscoco");
-        //public ViewModel _model;
-
         public MainView()
         {
             InitializeComponent();
-            //_model = new ViewModel(currentUser);
-            //DataContext = _model;
-            //gdMain.DataContext = _model;
 
+            //VlcControl vlc = new VlcControl();
+           
         }
     }
 }

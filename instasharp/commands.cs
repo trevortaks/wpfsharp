@@ -61,6 +61,74 @@ namespace instasharp
         }
     }
 
+    class loadComments : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter) 
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter) 
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            var mediaID = (string)values[1];
+            var select = Convert.ToInt32(values[2]);
+
+
+            _view.selectedPopup = select;
+            _view.popupShow = true;
+            _view.loadPostComments(mediaID);
+            
+
+        }
+    }
+
+    class loadLikers : ICommand
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter)
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter)
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            var mediaID = (string)values[1];
+            var select = Convert.ToInt32(values[2]);
+
+            _view.ppLikers();
+            _view.selectedPopup = select;
+            _view.popupShow = true;
+        }
+    }
+
+    class closePopup : ICommand
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter)
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter)
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            var mediaID = (string)values[1];
+           
+            _view.popupShow = false;
+        }
+    }
     class PlayCommand : ICommand {
         public ViewModel _view;
         public bool CanExecute(object parameter) {
@@ -75,4 +143,5 @@ namespace instasharp
             
         }
     }
+
 }

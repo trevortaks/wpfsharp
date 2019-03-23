@@ -68,8 +68,6 @@ namespace instasharp
 
             if (!_instaApi.IsUserAuthenticated)
                 {
-                    // login
-                    //Console.WriteLine("Logging in as + {userSession.UserName}");
                     delay.Disable();
                     var logInResult = await _instaApi.LoginAsync();
                     delay.Enable();
@@ -79,6 +77,12 @@ namespace instasharp
                        return false;
                     }
                 }
+            var state = _instaApi.GetStateDataAsStream();
+            using (var fileStream = File.Create(stateFile))
+            {
+                state.Seek(0, SeekOrigin.Begin);
+                state.CopyTo(fileStream);
+            }
             return true;
         }
 
@@ -87,6 +91,16 @@ namespace instasharp
             _currentUser = await _instaApi.GetCurrentUserAsync();
             var followers = await _instaApi.GetUserFollowersAsync(
                 _currentUser.Value.UserName, 
+                PaginationParameters.MaxPagesToLoad(5)
+                );
+
+            return followers;
+        }
+
+        public async Task<IResult<InstaUserShortList>> getUserFollowers(string username) 
+        {
+            var followers = await _instaApi.GetUserFollowersAsync(
+                username,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
 
@@ -102,6 +116,8 @@ namespace instasharp
             return following;
         }
 
+
+
         public async Task<IResult<InstaFeed>> getFeed() {
             var userFeed = await _instaApi.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return userFeed;
@@ -111,7 +127,7 @@ namespace instasharp
         {
             var userPosts = await _instaApi.GetUserMediaAsync(
                 _currentUser.Value.UserName, 
-                PaginationParameters.MaxPagesToLoad(5)
+                PaginationParameters.MaxPagesToLoad(2)
                 );
             return userPosts;
         }
@@ -126,6 +142,21 @@ namespace instasharp
             var unlikeResult = await _instaApi.UnLikeMediaAsync(media.InstaIdentifier);
         }
 
+        public async Task<IResult<InstaLikersList>> getLikers(string mediaID){
+    
+            var result = await _instaApi.GetMediaLikersAsync(mediaID);
+            return result;
+        }
+
+        public async Task<IResult<InstaCommentList>> getComments(string mediaID) 
+        {
+            var result = await _instaApi.GetMediaCommentsAsync(
+                mediaID, 
+                PaginationParameters.MaxPagesToLoad(2)
+                );
+            return result;
+        }
+        
         public async Task uploadPic()
         {
             var mediaImage = new InstaImage
@@ -135,7 +166,7 @@ namespace instasharp
                 URI = new Uri(Path.GetFullPath(@"c:\someawesomepicture.jpg"), UriKind.Absolute).LocalPath
             };
             var result = await _instaApi.UploadPhotoAsync(mediaImage, "someawesomepicture");
-            //var str = result.Succeeded ? @"Media created: {result.Value.Pk}, {result.Value.Caption}" : "Unable to upload photo: {result.Info.Message}");
+            var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
         }
 
 

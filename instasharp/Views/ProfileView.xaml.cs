@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace instasharp.Views
+namespace instasharp
 {
     /// <summary>
     /// Interaction logic for ProfileView.xaml
