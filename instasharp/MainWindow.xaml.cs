@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -19,21 +20,30 @@ namespace instasharp
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
     
     public partial class MainWindow : Window
     {
-       //User currentUser = null;
-        public ViewModel _model;
+       List<Post> posts = new List<Post>();
+       public ViewModel _model;
+
         public MainWindow()
         {
 
             InitializeComponent();
             _model = new ViewModel();
+
             DataContext = _model;
-            //ppLogin.Visibility 
-            var a = 1;
+
         }
-           
+
+        private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("New command triggered by " + e.Source.ToString());
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

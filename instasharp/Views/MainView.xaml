@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="instasharp.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+             xmlns:vm="clr-namespace:instasharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <vm:joinConverter x:Key="joinConverter" />
+    </UserControl.Resources>
+    <Grid Name="gdMain">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#eee" DockPanel.Dock="Right">
+            <ItemsControl x:Name="icPost" ItemsSource="{Binding posts}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:Name="dtPost">
+
+                        <Border x:Name="Post" Background="#eee" CornerRadius="5" 
+            					HorizontalAlignment="Center" Width="300" Margin="10, 25,0,0"
+            					BorderBrush="LightGray" BorderThickness="1" Height="500" VerticalAlignment="Top">
+                            <StackPanel Background="Transparent" HorizontalAlignment="Stretch" Height="500">
+                                <StackPanel Height="50" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Ellipse Width="30" Height="30" Margin="10, 0, 0, 0">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding url}"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Label x:Name="btnUsername" Content="{Binding userName}" VerticalAlignment="Center"
+            								Height="40" Margin="10,10,0,0" FontWeight="Bold" />
+                                </StackPanel>
+                                <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
+                                <Image x:Name="imgPost" Source="{Binding url}" >
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Setter Property="Height" Value="0"/>
+
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding isImage}" Value="true">
+                                                    <Setter  Property="Height"  Value="300"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+
+                                </Image>
+                                <StackPanel x:Name="spVideo" Orientation="Vertical">
+                                    <StackPanel.Style>
+                                        <Style TargetType="{x:Type StackPanel}">
+                                            <Setter Property="Height" Value="0"/>
+
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                    <Setter  Property="Height"  Value="300"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <!--<MediaElement x:Name="meVideo" Source="/assets/video_image.jpg" Stretch="Uniform" LoadedBehavior="Pause" 
+            								ScrubbingEnabled="True">
+                                        <MediaElement.Style>
+                                            <Style TargetType="{x:Type MediaElement}">
+                                                <Setter Property="Height" Value="0"/>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                        <Setter  Property="Height"  Value="200"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MediaElement.Style>
+                                    </MediaElement>-->
+                                <!--<Vlc:VlcControl x:Name="MyControl"/>-->
+                            </StackPanel>
+
+                                <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
+                                <StackPanel Orientation="Horizontal" Height="30">
+                                    <Label x:Name="btnLike" Content="&#xF004;" Width="50" Background="Transparent" FontSize="20" 
+            							BorderBrush="Transparent" Cursor="Hand">
+                                        <Label.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick"
+                                                          Command="{Binding DataContext.likePic, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}" Path="DataContext" />
+                                                        <Binding Path="mediaID"  />
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Label.InputBindings>
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding isLiked}" Value="false">
+                                                        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeRegular}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding isLiked}" Value="true">
+                                                        <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                    <Label x:Name="btnComment" Content="&#xF075;" Width="50" Background="Transparent" FontSize="20" 
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
+                                    <Label x:Name="btnDM" Content="&#xF1D8;" Width="50" Background="Transparent" FontSize="20" 
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
+                                </StackPanel>
+                                <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
+                                <Label x:Name="lblLikes" FontFamily="{StaticResource FontAwesomeRegular}" Cursor="Hand">
+                                    <Label.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.loadLiker, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                            <MouseBinding.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}" Path="DataContext" />
+                                                    <Binding Path="mediaID" />
+                                                    <Binding Source="0" />
+                                                </MultiBinding>
+                                            </MouseBinding.CommandParameter>
+                                        </MouseBinding>
+                                    </Label.InputBindings>
+                                    <TextBlock Text="{Binding likesCount, StringFormat=\{0\} likes}"/>
+                                </Label>
+                                <Label x:Name="lblCaption" Content="{Binding caption}" Height="50"/>
+                                <Label x:Name="lblComments" Height="70" Cursor="Hand">
+                                    <Label.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.loadComment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                            <MouseBinding.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}" Path="DataContext" />
+                                                    <Binding Path="mediaID"  />
+                                                    <Binding Source="1" ></Binding>
+                                                </MultiBinding>
+                                            </MouseBinding.CommandParameter>
+                                        </MouseBinding>
+                                    </Label.InputBindings>
+                                    <TextBlock Text="{Binding commentsCount, StringFormat=\{0\} comments}"/>
+                                </Label>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

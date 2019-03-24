@@ -16,8 +16,9 @@ namespace instasharp
     public class User
     {
         private static IInstaApi _instaApi;
-        IResult<InstaCurrentUser> currentUser = null;
-        public string loginResult { get; set; }
+        IResult<InstaCurrentUser> _currentUser = null;
+        public string loginResult { get; private set; }
+        public bool login { get; private set; }
 
         public User(string uname, string pwd) {
 
@@ -27,16 +28,7 @@ namespace instasharp
             }
             else
             {
-                var result = Task.Run(() => Login(uname, pwd)).GetAwaiter().GetResult();
-
-                if (result)
-                {
-                    loginResult = "Success";
-                }
-               /* else
-                {
-                    loginResult = "Wrong Password or Email";
-                }*/
+                login = Task.Run(() => Login(uname, pwd)).GetAwaiter().GetResult();
             }
         }
 
@@ -62,7 +54,7 @@ namespace instasharp
             {
                 if (File.Exists(stateFile))
                 {
-                    Console.WriteLine("Loading state from file");
+                    Console.WriteLine(@"Loading state from file");
                     using (var fs = File.OpenRead(stateFile))
                     {
                         _instaApi.LoadStateDataFromStream(fs);
@@ -76,8 +68,6 @@ namespace instasharp
 
             if (!_instaApi.IsUserAuthenticated)
                 {
-                    // login
-                    Console.WriteLine("Logging in as + {userSession.UserName}");
                     delay.Disable();
                     var logInResult = await _instaApi.LoginAsync();
                     delay.Enable();
@@ -87,14 +77,30 @@ namespace instasharp
                        return false;
                     }
                 }
+            var state = _instaApi.GetStateDataAsStream();
+            using (var fileStream = File.Create(stateFile))
+            {
+                state.Seek(0, SeekOrigin.Begin);
+                state.CopyTo(fileStream);
+            }
             return true;
         }
 
         public async Task<IResult<InstaUserShortList>> getFollowers()
         {
-            currentUser = await _instaApi.GetCurrentUserAsync();
+            _currentUser = await _instaApi.GetCurrentUserAsync();
             var followers = await _instaApi.GetUserFollowersAsync(
-                currentUser.Value.UserName, 
+                _currentUser.Value.UserName, 
+                PaginationParameters.MaxPagesToLoad(5)
+                );
+
+            return followers;
+        }
+
+        public async Task<IResult<InstaUserShortList>> getUserFollowers(string username) 
+        {
+            var followers = await _instaApi.GetUserFollowersAsync(
+                username,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
 
@@ -102,13 +108,15 @@ namespace instasharp
         }
 
         public async Task<IResult<InstaUserShortList>> getFollowing() {
-            currentUser = await _instaApi.GetCurrentUserAsync();
+            _currentUser = await _instaApi.GetCurrentUserAsync();
             var following = await _instaApi.GetUserFollowingAsync(
-                currentUser.Value.UserName,
+                _currentUser.Value.UserName,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
             return following;
         }
+
+
 
         public async Task<IResult<InstaFeed>> getFeed() {
             var userFeed = await _instaApi.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(5));
@@ -118,19 +126,50 @@ namespace instasharp
         public async Task<IResult<InstaMediaList>> getPosts()
         {
             var userPosts = await _instaApi.GetUserMediaAsync(
-                currentUser.Value.UserName, 
-                PaginationParameters.MaxPagesToLoad(5)
+                _currentUser.Value.UserName, 
+                PaginationParameters.MaxPagesToLoad(2)
                 );
             return userPosts;
         }
 
-        public async Task likePost(InstaMedia media) {
-            var likeResult = await _instaApi.LikeMediaAsync(media.InstaIdentifier);
+        public async Task<string> likePost(string mediaID) {
+            var likeResult = await _instaApi.LikeMediaAsync(mediaID);
+            var result = likeResult.Value ? "Liked" : "Not Liked";
+            return result;
         }
 
         public async Task unlikePost(InstaMedia media) {
             var unlikeResult = await _instaApi.UnLikeMediaAsync(media.InstaIdentifier);
         }
+
+        public async Task<IResult<InstaLikersList>> getLikers(string mediaID){
+    
+            var result = await _instaApi.GetMediaLikersAsync(mediaID);
+            return result;
+        }
+
+        public async Task<IResult<InstaCommentList>> getComments(string mediaID) 
+        {
+            var result = await _instaApi.GetMediaCommentsAsync(
+                mediaID, 
+                PaginationParameters.MaxPagesToLoad(2)
+                );
+            return result;
+        }
+        
+        public async Task uploadPic()
+        {
+            var mediaImage = new InstaImage
+            {
+                Height = 1080,
+                Width = 1080,
+                URI = new Uri(Path.GetFullPath(@"c:\someawesomepicture.jpg"), UriKind.Absolute).LocalPath
+            };
+            var result = await _instaApi.UploadPhotoAsync(mediaImage, "someawesomepicture");
+            var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
+        }
+
+
     }
 
 }

@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="instasharp.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="White">
+        <StackPanel Orientation="Vertical">
+            <DockPanel Name="spProfileHeader" Height="100" Margin="0,50,0,10" VerticalAlignment="Top">
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Height="100" HorizontalAlignment="Center" Margin="20,0,0,0">
+                    <Ellipse Width="60" Height="60">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="../assets/image.jpg" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Label Content="trevortaks" HorizontalAlignment="Center" Height="30"/>
+                </StackPanel>
+                <DockPanel x:Name="dpProfileDetail" DockPanel.Dock="Left">
+                    <StackPanel Name="spFollow" Orientation="Horizontal" DockPanel.Dock="Top" Height="50" HorizontalAlignment="Center"> 
+                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Label.InputBindings>
+                                <MouseBinding Command="" MouseAction="LeftClick"/>
+                            </Label.InputBindings>
+                            <!--<TextBlock Text="{Binding commentsCount, StringFormat=\{0\} /n comments}"/>-->
+                            <TextBlock Text="{Binding commentsNum, StringFormat=\{0\} Posts}" TextAlignment="Center" FontSize="15"/>
+
+                        </Label>
+                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Label.InputBindings>
+                                <MouseBinding Command="" MouseAction="LeftClick"/>
+                            </Label.InputBindings>
+                            <!--<TextBlock Text="{Binding commentsCount, StringFormat=\{0\} comments}"/>-->
+                            <TextBlock Text="{Binding commentsNum, StringFormat=\{0\}  Followers}" TextAlignment="Center" FontSize="15"/>
+                        </Label>
+                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Label.InputBindings>
+                                <MouseBinding Command="" MouseAction="LeftClick"/>
+                            </Label.InputBindings>
+                            <!--<TextBlock Text="{Binding commentsCount, StringFormat=\{0\} comments}"/>-->
+                            <TextBlock Text="{Binding commentsNum, StringFormat=\{0\} Following}" TextAlignment="Center" FontSize="15"/>
+                        </Label>
+                    </StackPanel>
+                    <Label Content="Edit Profile" Height="50" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="2" 
+                           DockPanel.Dock="Top" Width="300" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Margin="25,0,25,0" FontSize="15">
+                        <Label.InputBindings>
+                            <MouseBinding Command="" MouseAction="LeftClick"/>
+                        </Label.InputBindings>
+                    </Label>
+                </DockPanel>
+            </DockPanel>
+            <Rectangle Fill="Black" Height="1" HorizontalAlignment="Stretch" />
+            <Grid Background="Black">
+                <ItemsControl ItemsSource="{Binding posts}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Image x:Name="imgPost" Source="{Binding url}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Height" Value="0"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding isImage}" Value="true">
+                                                <Setter  Property="Height"  Value="300"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+
+                            </Image>
+                                <StackPanel x:Name="spVideo" Orientation="Vertical">
+                                    <StackPanel.Style>
+                                        <Style TargetType="{x:Type StackPanel}">
+                                            <Setter Property="Height" Value="0"/>
+
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                    <Setter  Property="Height"  Value="300"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <MediaElement x:Name="meVideo" Source="{Binding url}" Stretch="Uniform" LoadedBehavior="Pause" 
+            								ScrubbingEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <MediaElement.Style>
+                                            <Style TargetType="{x:Type MediaElement}">
+                                                <Setter Property="Height" Value="0"/>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                        <Setter  Property="Height"  Value="200"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MediaElement.Style>
+                                    </MediaElement>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

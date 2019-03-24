@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for PopupWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class PopupWindow : Window
     {
-        public Window1()
+        public PopupWindow()
         {
             InitializeComponent();
         }
