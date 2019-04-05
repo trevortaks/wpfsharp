@@ -74,7 +74,7 @@
                         </MouseBinding>
                     </Label.InputBindings>
                     <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text=" &#xF015;" FontFamily="{StaticResource FontAwesomeSolid}" FontSize="30"></TextBlock>
+                        <TextBlock Text=" Z " FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
                         <TextBlock Text="   Home" FontSize="20" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Label>
@@ -91,7 +91,7 @@
                         </MouseBinding>
                     </Label.InputBindings>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" &#xF004;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                        <TextBlock Text=" l " FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
                         <TextBlock Text="   Activity" FontSize="20" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </Label>
@@ -108,7 +108,7 @@
                     </MouseBinding>
                 </Label.InputBindings>
                 <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" &#xF279;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                        <TextBlock Text=" # " FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
                         <TextBlock Text="   Explore" FontSize="20"></TextBlock>
                     </StackPanel>
                 </Label>
@@ -126,7 +126,7 @@
                         </MouseBinding>
                     </Label.InputBindings>
                     <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text=" &#xF1D8;" FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
+                        <TextBlock Text=" > " FontFamily="{StaticResource FontAwesomeRegular}" FontSize="30"></TextBlock>
                         <TextBlock Text="   Messaging" FontSize="20"></TextBlock>
                     </StackPanel>
                 </Label>

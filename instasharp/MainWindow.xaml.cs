@@ -23,7 +23,7 @@ namespace instasharp
     
     public partial class MainWindow : Window
     {
-       List<Post> posts = new List<Post>();
+
        public ViewModel _model;
 
         public MainWindow()
@@ -33,23 +33,6 @@ namespace instasharp
             _model = new ViewModel();
 
             DataContext = _model;
-
-            //PopupWindow ppWindow= new PopupWindow(_model);
-            //ppWindow.ShowDialog();
-
-            //ppLogin.IsOpen = true;
-
-            //if (!ppLogin.IsOpen) 
-            //{
-            //   // dpDock.Opacity = 0;
-            //    var effect = new BlurEffect();
-            //    var current = this.Background;
-            //    effect.Radius = 5;
-            //    //dpDock.Effect = effect;
-            //    this.Background = new SolidColorBrush(Colors.DarkGray);
-            //    this.Effect = effect;
-            //    ppLogin.IsOpen = true;
-            //}
         }
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -57,9 +40,9 @@ namespace instasharp
             MessageBox.Show("New command triggered by " + e.Source.ToString());
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _model.closePopup.Execute(_model);
         }
     }
 }

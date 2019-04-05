@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coreProperties xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties">
+  <dc:creator>Xceed</dc:creator>
+  <dc:description>Extended WPF Toolkit is the number one collection of WPF controls, components and utilities for creating next generation Windows applications. Provides 48 controls, all offered under the Microsoft Public License for maximum freedom. v3.5.0 provides 26 bug fixes and improvements. Documentation, source, and discussions are hosted on Github at https://github.com/xceedsoftware/wpftoolkit. Check out the Plus Edition to support the project, get more controls and features, and work with a version a few releases ahead of the free releases.</dc:description>
+  <dc:identifier>Extended.Wpf.Toolkit</dc:identifier>
+  <version>3.5.0</version>
+  <keywords>Extended WPF Toolkit</keywords>
+  <lastModifiedBy>NuGet, Version=4.9.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35;Microsoft Windows NT 6.2.9200.0;.NET Framework 4.6</lastModifiedBy>
+</coreProperties>

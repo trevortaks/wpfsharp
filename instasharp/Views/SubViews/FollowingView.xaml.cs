@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for ActivityView.xaml
+    /// Interaction logic for FollowingView.xaml
     /// </summary>
-    public partial class ActivityView : UserControl
+    public partial class FollowingView : UserControl
     {
-        public ActivityView()
+        public FollowingView()
         {
             InitializeComponent();
         }
