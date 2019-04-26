@@ -3,11 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
-
+/*
+ * Commands for handling various events in app
+ */
 namespace instasharp
 {
-    class Commands : ICommand
+    class Login : ICommand 
+    {
+        public ViewModel _view;
+
+        public bool CanExecute(object Parameter) { 
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter) {
+            var values = (object[])Parameter;
+
+            _view = (ViewModel)values[0];
+            var username = (string)values[1];
+            var password = (PasswordBox)values[2];
+
+            _view.SecurePassword = password.SecurePassword;
+            _view.Login(username);
+            
+        }
+    }
+
+    class likeMedia : ICommand
     {
         public ViewModel _view;
 
@@ -37,7 +63,6 @@ namespace instasharp
         public void Execute(object Parameter) {
             ViewModel _view = (ViewModel)Parameter;
             _view.showMenu = !_view.showMenu;
-            var a = 0;
         }
     }
 
@@ -58,6 +83,7 @@ namespace instasharp
             var selectedOption = Convert.ToInt32(selectedOptio);
 
             _view.selectedView = selectedOption;
+            _view.loadViews();
         }
     }
 
@@ -78,9 +104,8 @@ namespace instasharp
             var mediaID = (string)values[1];
             var select = Convert.ToInt32(values[2]);
 
-
             _view.selectedPopup = select;
-            _view.popupShow = true;
+            _view.popupShow = "Visible";
             _view.loadPostComments(mediaID);
             
 
@@ -104,9 +129,9 @@ namespace instasharp
             var mediaID = (string)values[1];
             var select = Convert.ToInt32(values[2]);
 
-            _view.ppLikers();
+            _view.loadPostLikers(mediaID);
             _view.selectedPopup = select;
-            _view.popupShow = true;
+            _view.popupShow = "Visible";
         }
     }
 
@@ -122,26 +147,10 @@ namespace instasharp
 
         public void Execute(Object Parameter)
         {
-            var values = (object[])Parameter;
-            _view = (ViewModel)values[0];
-            var mediaID = (string)values[1];
+            var values = (object)Parameter;
+            _view = (ViewModel)values;
            
-            _view.popupShow = false;
+            _view.popupShow = "Hidden";
         }
     }
-    class PlayCommand : ICommand {
-        public ViewModel _view;
-        public bool CanExecute(object parameter) {
-            return true;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object Parameter)
-        {
-            
-            
-        }
-    }
-
 }

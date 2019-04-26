@@ -107,6 +107,22 @@ namespace instasharp
             return followers;
         }
 
+        public async Task<IResult<InstaUser>> getUserDetails(string username) 
+        {
+            var details = await _instaApi.GetUserAsync(username);
+            return details;
+        }
+
+        public async Task<IResult<InstaMediaList>> getUserPosts(string username) 
+        {
+            var posts = await _instaApi.GetUserMediaAsync(
+                username,
+                PaginationParameters.MaxPagesToLoad(5)
+                );
+            return posts;
+        }
+
+
         public async Task<IResult<InstaUserShortList>> getFollowing() {
             _currentUser = await _instaApi.GetCurrentUserAsync();
             var following = await _instaApi.GetUserFollowingAsync(
@@ -116,6 +132,17 @@ namespace instasharp
             return following;
         }
 
+        public async Task<IResult<InstaActivityFeed>> getUserFollowingActivity()
+        {
+            var activity = await _instaApi.GetFollowingRecentActivityAsync(PaginationParameters.MaxPagesToLoad(5));
+            return activity;
+        }
+
+        public async Task<IResult<InstaMediaList>> getUserCurrentActivity() 
+        {
+            var activity = await _instaApi.GetLikeFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            return activity;
+        }
 
 
         public async Task<IResult<InstaFeed>> getFeed() {
@@ -130,6 +157,12 @@ namespace instasharp
                 PaginationParameters.MaxPagesToLoad(2)
                 );
             return userPosts;
+        }
+
+        public async Task<IResult<InstaExploreFeed>> getExploreFeed() {
+
+            var feed = await _instaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            return feed;
         }
 
         public async Task<string> likePost(string mediaID) {
@@ -168,8 +201,6 @@ namespace instasharp
             var result = await _instaApi.UploadPhotoAsync(mediaImage, "someawesomepicture");
             var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
         }
-
-
     }
 
 }

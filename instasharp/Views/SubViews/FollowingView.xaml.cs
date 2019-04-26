@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for ppLogin.xaml
+    /// Interaction logic for FollowingView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class FollowingView : UserControl
     {
-        ViewModel _view;
-        public LoginView()
+        public FollowingView()
         {
             InitializeComponent();
-            _view = (ViewModel) this.DataContext;
         }
-
-        //private void pwdPwd_PasswordChanged(object sender, RoutedEventArgs e)
-        //{
-        //    if (this.DataContext != null) {
-        //        _view.SecurePassword = ((PasswordBox)sender).SecurePassword;
-        //    }
-        //}
-
     }
 }

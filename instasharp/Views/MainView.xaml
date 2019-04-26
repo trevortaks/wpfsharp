@@ -2,9 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mekit="clr-namespace:MediaElementKit;assembly=MediaElementKit"
              xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
              xmlns:vm="clr-namespace:instasharp"
+             xmlns:carousel="clr-namespace:FluidKit.Controls;assembly=FluidKit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -36,20 +38,22 @@
             								Height="40" Margin="10,10,0,0" FontWeight="Bold" />
                                 </StackPanel>
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
-                                <Image x:Name="imgPost" Source="{Binding url}" >
-                                    <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Setter Property="Height" Value="0"/>
+                                <carousel:TransitionPresenter x:Name="_transContainer" >
+                                    <Image x:Name="imgPost" Source="{Binding url}" >
+                                        <Image.Style>
+                                            <Style TargetType="{x:Type Image}">
+                                                <Setter Property="Height" Value="0"/>
 
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding isImage}" Value="true">
-                                                    <Setter  Property="Height"  Value="300"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding isImage}" Value="true">
+                                                        <Setter  Property="Height"  Value="300"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
 
-                                </Image>
+                                    </Image>
+                                </carousel:TransitionPresenter>
                                 <StackPanel x:Name="spVideo" Orientation="Vertical">
                                     <StackPanel.Style>
                                         <Style TargetType="{x:Type StackPanel}">
@@ -77,12 +81,26 @@
                                         </MediaElement.Style>
                                     </MediaElement>-->
                                 <!--<Vlc:VlcControl x:Name="MyControl"/>-->
-                            </StackPanel>
+                                    <!--<mekit:MediaElementPro Source="/assets/video2.mp4" ScrubbingEnabled="True">
+                                        <mekit:MediaElementPro.Style>
+                                            <Style TargetType="{x:Type mekit:MediaElementPro}">
+                                                <Setter Property="Height" Value="0"/>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                        <Setter  Property="Height"  Value="200"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </mekit:MediaElementPro.Style>
+                                    </mekit:MediaElementPro>-->
+                                    <!--<vlc:VlcControl x:Name="MyControl"></vlc:VlcControl>-->
+                                </StackPanel>
 
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
-                                <StackPanel Orientation="Horizontal" Height="30">
-                                    <Label x:Name="btnLike" Content="&#xF004;" Width="50" Background="Transparent" FontSize="20" 
-            							BorderBrush="Transparent" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <Label x:Name="btnLike" Width="50" Background="Transparent" FontSize="30" 
+            							BorderBrush="Transparent" Cursor="Hand" FontWeight="Thin">
                                         <Label.InputBindings>
                                             <MouseBinding MouseAction="LeftClick"
                                                           Command="{Binding DataContext.likePic, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
@@ -98,22 +116,24 @@
                                             <Style TargetType="Label">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding isLiked}" Value="false">
+                                                        <Setter Property="Content" Value="W" />
                                                         <Setter Property="FontFamily" Value="{StaticResource FontAwesomeRegular}" />
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding isLiked}" Value="true">
+                                                        <Setter Property="Content" Value="&#xf004;" />
                                                         <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Label.Style>
                                     </Label>
-                                    <Label x:Name="btnComment" Content="&#xF075;" Width="50" Background="Transparent" FontSize="20" 
+                                    <Label x:Name="btnComment" Content="," Width="50" Background="Transparent" FontSize="30" 
             								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
-                                    <Label x:Name="btnDM" Content="&#xF1D8;" Width="50" Background="Transparent" FontSize="20" 
+                                    <Label x:Name="btnDM" Content=">" Width="50" Background="Transparent" FontSize="30" 
             								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
                                 </StackPanel>
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
-                                <Label x:Name="lblLikes" FontFamily="{StaticResource FontAwesomeRegular}" Cursor="Hand">
+                                <Label x:Name="lblLikes" Cursor="Hand">
                                     <Label.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.loadLiker, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
                                             <MouseBinding.CommandParameter>
@@ -127,7 +147,7 @@
                                     </Label.InputBindings>
                                     <TextBlock Text="{Binding likesCount, StringFormat=\{0\} likes}"/>
                                 </Label>
-                                <Label x:Name="lblCaption" Content="{Binding caption}" Height="50"/>
+                                <TextBlock x:Name="lblCaption" Text="{Binding caption}" Height="50" TextWrapping="Wrap"/>
                                 <Label x:Name="lblComments" Height="70" Cursor="Hand">
                                     <Label.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.loadComment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">

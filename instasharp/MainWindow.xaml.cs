@@ -23,7 +23,7 @@ namespace instasharp
     
     public partial class MainWindow : Window
     {
-       List<Post> posts = new List<Post>();
+
        public ViewModel _model;
 
         public MainWindow()
@@ -33,7 +33,6 @@ namespace instasharp
             _model = new ViewModel();
 
             DataContext = _model;
-
         }
 
         private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -41,8 +40,9 @@ namespace instasharp
             MessageBox.Show("New command triggered by " + e.Source.ToString());
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void closeButton_Click(object sender, RoutedEventArgs e)
         {
+            _model.closePopup.Execute(_model);
 
         }
     }

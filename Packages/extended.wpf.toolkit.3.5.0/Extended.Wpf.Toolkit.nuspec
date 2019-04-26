@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Extended.Wpf.Toolkit</id>
+    <version>3.5.0</version>
+    <title>Extended WPF Toolkit</title>
+    <authors>Xceed</authors>
+    <owners>Xceed</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MS-PL</license>
+    <licenseUrl>https://licenses.nuget.org/MS-PL</licenseUrl>
+    <projectUrl>https://github.com/xceedsoftware/wpftoolkit</projectUrl>
+    <iconUrl>https://xceed.com/wp-content/uploads/2017/07/Xceed_Logo_Retina-400x400.png</iconUrl>
+    <description>Extended WPF Toolkit is the number one collection of WPF controls, components and utilities for creating next generation Windows applications. Provides 48 controls, all offered under the Microsoft Public License for maximum freedom. v3.5.0 provides 26 bug fixes and improvements. Documentation, source, and discussions are hosted on Github at https://github.com/xceedsoftware/wpftoolkit. Check out the Plus Edition to support the project, get more controls and features, and work with a version a few releases ahead of the free releases.</description>
+    <summary>Extended WPF Toolkit is the number one collection of WPF controls for creating next-gen Windows apps. v3.5.0 provides 26 bug fixes and improvements.</summary>
+    <releaseNotes>v3.5.0 provides 26 bug fixes and improvements.  14 of them are for AvalonDock, the docking windows control. Also, the DataGrid control is now part of the Toolkit Plus for WPF.
+Released February 7, 2019.</releaseNotes>
+    <copyright>Copyright © Xceed Software Inc. 2010-2019</copyright>
+    <tags>Extended WPF Toolkit</tags>
+  </metadata>
+</package>

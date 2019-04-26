@@ -4,7 +4,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="FontAwesome">./fonts/FontAwesome.otf#FontAwesome</FontFamily>
-        <FontFamily x:Key="FontAwesomeRegular">./fonts/FontAwesome5FreeRegular.otf#Font Awesome 5 Free Regular</FontFamily>
+        <!--<FontFamily x:Key="FontAwesomeRegular">./fonts/FontAwesome5FreeRegular.otf#Font Awesome 5 Free Regular</FontFamily>-->
+        <FontFamily x:Key="FontAwesomeRegular">./fonts/linea-basic-10.ttf#linea-basic-10</FontFamily>
+
         <FontFamily x:Key="FontAwesomeSolid">./fonts/FontAwesome5FreeSolid.otf#Font Awesome 5 Free Solid</FontFamily>
         <FontFamily x:Key="FontAwesomeBrands">./fonts/FontAwesome5BrandsRegular400.otf#Font Awesome 5 Brands Regular</FontFamily>
     </Application.Resources>

@@ -1,6 +1,7 @@
 ﻿<Window x:Class="instasharp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
         xmlns:vm="clr-namespace:instasharp"
         xmlns:lib="clr-namespace:instasharp.Views"
         Title="InstaWPF" Height="750" Width="1250">
@@ -15,7 +16,7 @@
             <vm:ProfileView />
         </DataTemplate>
         <DataTemplate x:Key="ActivityView" DataType="{x:Type vm:ViewModel}" >
-            <lib:ActivityView />
+            <vm:ActivityView />
         </DataTemplate>
         <DataTemplate x:Key="ExploreView" DataType="{x:Type vm:ViewModel}" >
             <lib:ExploreView />
@@ -36,31 +37,30 @@
             <vm:LikersView />
         </DataTemplate>
         <BlurEffect x:Key="Blur" Radius="5"></BlurEffect>
-       
-    </Window.Resources>
-    <Window.Style>
-        <Style TargetType="Window">
+        <Style TargetType="DockPanel" x:Key="styleBlur">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding popupShow}" Value="true">
+                <DataTrigger Binding="{Binding popupShow}" Value="Visible">
                     <Setter Property="Effect" Value="{StaticResource Blur}" />
                     <Setter Property="Background" Value="DarkGray" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </Window.Style>
+       
+    </Window.Resources>
 
     <Grid Background="#000" Name="gridHome" >
-        
-            <Popup Name="ppLogin" Placement="Center" Width="500" Height="300"
+
+        <xctk:ChildWindow Visibility="{Binding popupShow}" Margin="0,0,20,20" Caption="Comments"
+                             WindowBackground="#eee" CloseButtonClicked="closeButton_Click" IsModal="True" WindowStartupLocation="Center">
+            <xctk:ChildWindow.Effect>
+                <DropShadowEffect BlurRadius="10" Opacity="0.3" ShadowDepth="10" RenderingBias="Quality"/>
+            </xctk:ChildWindow.Effect>
+        <!--<Popup Name="ppLogin" Placement="Relative" HorizontalOffset="300" VerticalOffset="100" Width="500" Height="300"
                    HorizontalAlignment="Center" VerticalAlignment="Center" IsOpen="{Binding popupShow}" PopupAnimation="Fade"
-                   AllowsTransparency="True">
-                
-                <Grid>
-                    <Border CornerRadius="100"  BorderThickness="1" Background="White" Margin="0,0,20,20" >
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Opacity="0.8" ShadowDepth="10" RenderingBias="Quality"/>
-                    </Border.Effect>
-                        <ContentControl Name="ccLogin" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Popup}}}">
+                   AllowsTransparency="True">-->
+                <Grid Width="500" Height="300">
+                    <Border Background="White">
+                        <ContentControl Name="ccLogin" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type xctk:ChildWindow}}}">
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Setter Property="ContentTemplate" Value="{StaticResource LoginView}" />
@@ -80,9 +80,10 @@
                         </ContentControl>
                     </Border>
                 </Grid>
-            </Popup>
-        
-        <DockPanel x:Name="dpDock">
+            <!--</Popup>-->
+        </xctk:ChildWindow>
+        <DockPanel x:Name="dpDock" Style="{StaticResource styleBlur}">
+            <!--<DockPanel.Style ></DockPanel.Style>-->
 
             <ContentControl DockPanel.Dock="Left" Name="ccSidebar" ContentTemplate="{StaticResource SidebarView}" 
                            Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}"/>
