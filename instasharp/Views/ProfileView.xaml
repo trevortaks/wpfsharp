@@ -50,7 +50,7 @@
             </DockPanel>
             <Rectangle Fill="Black" Height="1" HorizontalAlignment="Stretch" />
             <Grid Background="#eee">
-                <ItemsControl ItemsSource="{Binding userDetails.posts}">
+                <ItemsControl ItemsSource="{Binding posts}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />

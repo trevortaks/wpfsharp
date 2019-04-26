@@ -43,6 +43,7 @@ namespace instasharp
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             _model.closePopup.Execute(_model);
+
         }
     }
 }

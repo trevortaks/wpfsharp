@@ -20,10 +20,19 @@ namespace instasharp
     /// </summary>
     public partial class LoginView : UserControl
     {
+        ViewModel _view;
         public LoginView()
         {
             InitializeComponent();
+            _view = (ViewModel) this.DataContext;
         }
+
+        //private void pwdPwd_PasswordChanged(object sender, RoutedEventArgs e)
+        //{
+        //    if (this.DataContext != null) {
+        //        _view.SecurePassword = ((PasswordBox)sender).SecurePassword;
+        //    }
+        //}
 
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
@@ -58,7 +59,7 @@ namespace instasharp
             }
         }
 
-        private int _selectedView = 2;
+        private int _selectedView = 1;
         public int selectedView
         {
             get { return _selectedView; }
@@ -68,7 +69,7 @@ namespace instasharp
             }
         }
 
-        private int _selectedPopup = 1;
+        private int _selectedPopup = 2;
         public int selectedPopup
         {
             get { return _selectedPopup; }
@@ -107,6 +108,18 @@ namespace instasharp
             }
         }
 
+        private ICommand _login;
+        public ICommand login
+        {
+            get { return _login; }
+            set
+            {
+                _login = value;
+                OnPropertyChanged("login");
+            }
+        }
+
+
         private ObservableCollection<string> _likers = new ObservableCollection<string>();
         public ObservableCollection<string> likers
         {
@@ -141,7 +154,7 @@ namespace instasharp
             }
         }
 
-        private string _popupShow = "Hidden";
+        private string _popupShow = "Visible";
         public string popupShow
         {   get { return _popupShow; }
             set {
@@ -150,26 +163,48 @@ namespace instasharp
             }
         }
 
+        public string username
+        {
+            get;
+            set;
+        }
+
+        public SecureString SecurePassword
+        {
+            get;
+            set;
+        }
+
         public ViewModel() {
-            var name = "trevortaks";
-            _currentUser = new User(name, "");
-            loadFeed();
-            
+            //var name = "trevortaks";
+            //_currentUser = new User(name, "");
+            //loadFeed();
              _likePicCommand = new likeMedia();
              _collapseMenu = new collapseMenus();
              _changeView = new changeViews();
              _loadComment = new loadComments();
              _loadLiker = new loadLikers();
              _closePopup = new closePopup();
+             _login = new Login();
+            
+        }
+
+        public void Login(string username){
+            _currentUser = new User(username, SecurePassword.ToString());
+            if (_currentUser.login) 
+            {
+                popupShow = "Hidden";
+                loadFeed();  
+            }
             
         }
 
         private void loadFeed(){
            if (_currentUser.login)
            {
-               //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+               App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
                //loadList();
-               loadUserDetails();
+               //loadUserDetails();
                //loadFollowActivity();
            }
            else
@@ -219,24 +254,24 @@ namespace instasharp
         }
 
         public void loadPostComments(string mediaID) {
-            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateComments(mediaID); });
-            ppComments();
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateComments(mediaID); });
+            //ppComments();
         }
 
         public void loadFollowActivity() {
-            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFollowActivity(); });
-            ppFollowActivity();
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFollowActivity(); });
+            //ppFollowActivity();
         }
 
         public void loadPostLikers(string mediaID) {
-            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateLikers(mediaID); });
-            ppLikers();
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateLikers(mediaID); });
+            //ppLikers();
         }
 
         public void loadUserDetails(){
-            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails("trevortaks"); });
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails("trevortaks"); });
             
-            ppUserDetails();
+            //ppUserDetails();
         }
 
         public async Task populateUserDetails(string username) 
@@ -244,19 +279,31 @@ namespace instasharp
             var user = await _currentUser.getUserDetails(username);
             var posts = await _currentUser.getUserPosts(username);
 
-            _userDetails.userName = user.Value.UserName;
-            _userDetails.fullName = user.Value.FullName;
-            _userDetails.followers = user.Value.FollowersCount.ToString() + "\n";
-            _userDetails.profilePic = user.Value.ProfilePicture;
-            _userDetails.isFollowing = user.Value.FriendshipStatus.Following;
 
-            foreach(var post in posts.Value)
+                _userDetails.userName = user.Value.UserName;
+                _userDetails.fullName = user.Value.FullName;
+                _userDetails.followers = user.Value.FollowersCount.ToString() + "\n";
+                _userDetails.profilePic = user.Value.ProfilePicture;
+                _userDetails.isFollowing = user.Value.FriendshipStatus.Following;
+           
+            foreach (var post in posts.Value)
             {
-                _userDetails.posts.Add(
-                        new Post() { 
-                            url = post.Images[0].URI
-                        }
-                    );
+                try
+                {
+                    _userDetails.posts.Add(
+                            new Post()
+                            {
+                                url = post.Images[0].URI
+                            }
+                        );
+                }
+                catch (System.NullReferenceException)
+                {
+                    continue;
+                }
+                catch (Exception e) {
+                    continue;
+                }
             }
         }
 
@@ -270,15 +317,15 @@ namespace instasharp
 
                 //foreach (var media in feed.Value.Medias)
                 //{
-                    for (int i = 0; i < 20; i++)
-                    {
+                for (int i = 0; i < 7; i++)
+                {
                         var media = feed.Value.Medias[i];
                         bool isImage = false;
                         string url = "";
                         if (media.MediaType.ToString() == "Image")
                         {
                             isImage = true;
-                           // if (media.Images.Count > 0) url = media.Images[0].URI;
+                            if (media.Images.Count > 0) url = media.Images[0].URI;
                         }
                         if (media.MediaType.ToString() == "Video")
                         {
@@ -297,8 +344,8 @@ namespace instasharp
 	                                userName = media.User.UserName,
 	                                isImage = isImage,
 	                                date = media.TakenAt,
-                                    userPic = media.User.ProfilePicture
-	                                //url = url
+                                    userPic = media.User.ProfilePicture,
+	                                url = url
 
 	                            }
                             );

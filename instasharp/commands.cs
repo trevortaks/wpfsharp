@@ -3,12 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 /*
  * Commands for handling various events in app
  */
 namespace instasharp
 {
+    class Login : ICommand 
+    {
+        public ViewModel _view;
+
+        public bool CanExecute(object Parameter) { 
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter) {
+            var values = (object[])Parameter;
+
+            _view = (ViewModel)values[0];
+            var username = (string)values[1];
+            var password = (PasswordBox)values[2];
+
+            _view.SecurePassword = password.SecurePassword;
+            _view.Login(username);
+            
+        }
+    }
+
     class likeMedia : ICommand
     {
         public ViewModel _view;

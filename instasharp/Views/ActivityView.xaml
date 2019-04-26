@@ -38,7 +38,8 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="20" VerticalAlignment="Center" Width="600" Margin=" 0, 15, 0, 0"/>
+                                <TextBlock Text="{Binding}" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="20" 
+                                           VerticalAlignment="Center" Width="600" Margin=" 0, 15, 0, 0" TextWrapping="Wrap"/>
                                 <Rectangle Height="1" HorizontalAlignment="Stretch" Fill="LightGray" VerticalAlignment="Bottom" Margin="0, 15, 0, 0"/>
                             </StackPanel>
                         </DataTemplate>

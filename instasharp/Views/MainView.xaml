@@ -147,7 +147,7 @@
                                     </Label.InputBindings>
                                     <TextBlock Text="{Binding likesCount, StringFormat=\{0\} likes}"/>
                                 </Label>
-                                <TextBlock x:Name="lblCaption" Text="{Binding caption}" Height="50" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                                <TextBlock x:Name="lblCaption" Text="{Binding caption}" Height="50" TextWrapping="Wrap"/>
                                 <Label x:Name="lblComments" Height="70" Cursor="Hand">
                                     <Label.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.loadComment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
