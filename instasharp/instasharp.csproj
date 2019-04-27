@@ -38,8 +38,8 @@
     <Reference Include="FluidKit">
       <HintPath>..\Packages\FluidKit\FluidKit.dll</HintPath>
     </Reference>
-    <Reference Include="InstaSharper">
-      <HintPath>..\Packages\lib\net451\InstaSharper.dll</HintPath>
+    <Reference Include="InstagramApiSharp">
+      <HintPath>..\Packages\InstagramApiSharp.1.3.1.6\lib\net452\InstagramApiSharp.dll</HintPath>
     </Reference>
     <Reference Include="MediaElementKit">
       <HintPath>..\Packages\mediaelementpro.1.0.1\lib\MediaElementKit.dll</HintPath>
@@ -59,14 +59,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Vlc.DotNet.Core">
-      <HintPath>..\Packages\Vlv.DotNet.Core.3.0.0-develop345\lib\net45\Vlc.DotNet.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Core.Interops, Version=3.0.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
-      <HintPath>..\packages\Vlc.DotNet.Core.Interops.3.0.0-develop345\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Wpf">
+    <Reference Include="Vlc.DotNet.Wpf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Packages\Vlc.DotNet.Wpf.3.0.0-develop345\lib\net45\Vlc.DotNet.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -82,9 +76,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="commands.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -120,10 +111,6 @@
     <Compile Include="Views\SubViews\FollowingView.xaml.cs">
       <DependentUpon>FollowingView.xaml</DependentUpon>
     </Compile>
-    <Page Include="LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\CommentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,7 +204,12 @@
     <Resource Include="fonts\linea-basic-10.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <None Include="packages.config" />
+    <Resource Include="fonts\Billabong.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\AvenyT_Regular.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

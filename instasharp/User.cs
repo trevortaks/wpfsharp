@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InstaSharper;
-using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
-using InstaSharper.API.Builder;
-using InstaSharper.Logger;
-using InstaSharper.API;
+//using InstaSharper;
+//using InstaSharper.Classes;
+//using InstaSharper.Classes.Models;
+//using InstaSharper.API.Builder;
+//using InstaSharper.Logger;
+//using InstaSharper.API;
+using InstagramApiSharp;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
+using InstagramApiSharp.API;
+using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Logger;
 using System.IO;
 
 namespace instasharp
@@ -89,8 +95,7 @@ namespace instasharp
         public async Task<IResult<InstaUserShortList>> getFollowers()
         {
             _currentUser = await _instaApi.GetCurrentUserAsync();
-            var followers = await _instaApi.GetUserFollowersAsync(
-                _currentUser.Value.UserName, 
+            var followers = await _instaApi.UserProcessor.GetCurrentUserFollowersAsync(
                 PaginationParameters.MaxPagesToLoad(5)
                 );
 
@@ -99,7 +104,7 @@ namespace instasharp
 
         public async Task<IResult<InstaUserShortList>> getUserFollowers(string username) 
         {
-            var followers = await _instaApi.GetUserFollowersAsync(
+            var followers = await _instaApi.UserProcessor.GetUserFollowersAsync(
                 username,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
@@ -107,26 +112,26 @@ namespace instasharp
             return followers;
         }
 
-        public async Task<IResult<InstaUser>> getUserDetails(string username) 
+        public async Task<IResult<InstaUserInfo>> getUserDetails(string username) 
         {
-            var details = await _instaApi.GetUserAsync(username);
+            //var details = await _instaApi.GetUserAsync(username);
+            var details = await _instaApi.UserProcessor.GetUserInfoByUsernameAsync(username);
             return details;
         }
 
         public async Task<IResult<InstaMediaList>> getUserPosts(string username) 
         {
-            var posts = await _instaApi.GetUserMediaAsync(
+            var posts = await _instaApi.UserProcessor.GetUserMediaAsync(
                 username,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
             return posts;
         }
 
-
-        public async Task<IResult<InstaUserShortList>> getFollowing() {
-            _currentUser = await _instaApi.GetCurrentUserAsync();
-            var following = await _instaApi.GetUserFollowingAsync(
-                _currentUser.Value.UserName,
+        public async Task<IResult<InstaUserShortList>> getUserFollowing(string username) {
+            //_currentUser = await _instaApi.GetCurrentUserAsync();
+            var following = await _instaApi.UserProcessor.GetUserFollowersAsync(
+                username,
                 PaginationParameters.MaxPagesToLoad(5)
                 );
             return following;
@@ -134,25 +139,25 @@ namespace instasharp
 
         public async Task<IResult<InstaActivityFeed>> getUserFollowingActivity()
         {
-            var activity = await _instaApi.GetFollowingRecentActivityAsync(PaginationParameters.MaxPagesToLoad(5));
+            var activity = await _instaApi.UserProcessor.GetFollowingRecentActivityFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return activity;
         }
 
-        public async Task<IResult<InstaMediaList>> getUserCurrentActivity() 
+        public async Task<IResult<InstaActivityFeed>> getUserCurrentActivity() 
         {
-            var activity = await _instaApi.GetLikeFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            var activity = await _instaApi.UserProcessor.GetRecentActivityFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return activity;
         }
 
 
         public async Task<IResult<InstaFeed>> getFeed() {
-            var userFeed = await _instaApi.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            var userFeed = await _instaApi.FeedProcessor.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return userFeed;
         }
 
         public async Task<IResult<InstaMediaList>> getPosts()
         {
-            var userPosts = await _instaApi.GetUserMediaAsync(
+            var userPosts = await _instaApi.UserProcessor.GetUserMediaAsync(
                 _currentUser.Value.UserName, 
                 PaginationParameters.MaxPagesToLoad(2)
                 );
@@ -161,29 +166,29 @@ namespace instasharp
 
         public async Task<IResult<InstaExploreFeed>> getExploreFeed() {
 
-            var feed = await _instaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            var feed = await _instaApi.FeedProcessor.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return feed;
         }
 
         public async Task<string> likePost(string mediaID) {
-            var likeResult = await _instaApi.LikeMediaAsync(mediaID);
+            var likeResult = await _instaApi.MediaProcessor.LikeMediaAsync(mediaID);
             var result = likeResult.Value ? "Liked" : "Not Liked";
             return result;
         }
 
         public async Task unlikePost(InstaMedia media) {
-            var unlikeResult = await _instaApi.UnLikeMediaAsync(media.InstaIdentifier);
+            var unlikeResult = await _instaApi.MediaProcessor.UnLikeMediaAsync(media.InstaIdentifier);
         }
 
         public async Task<IResult<InstaLikersList>> getLikers(string mediaID){
     
-            var result = await _instaApi.GetMediaLikersAsync(mediaID);
+            var result = await _instaApi.MediaProcessor.GetMediaLikersAsync(mediaID);
             return result;
         }
 
         public async Task<IResult<InstaCommentList>> getComments(string mediaID) 
         {
-            var result = await _instaApi.GetMediaCommentsAsync(
+            var result = await _instaApi.CommentProcessor.GetMediaCommentsAsync(
                 mediaID, 
                 PaginationParameters.MaxPagesToLoad(2)
                 );
@@ -196,11 +201,14 @@ namespace instasharp
             {
                 Height = 1080,
                 Width = 1080,
-                URI = new Uri(Path.GetFullPath(@"c:\someawesomepicture.jpg"), UriKind.Absolute).LocalPath
+                Uri = new Uri(Path.GetFullPath(@"c:\someawesomepicture.jpg"), UriKind.Absolute).LocalPath
             };
-            var result = await _instaApi.UploadPhotoAsync(mediaImage, "someawesomepicture");
-            var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
+            //var result = await _instaApi.MediaProcessor.UploadPhotoAsync(mediaImage, "someawesomepicture");
+            //var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
+
         }
+
+        
     }
 
 }

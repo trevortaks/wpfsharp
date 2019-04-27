@@ -23,7 +23,7 @@
                             <Label.InputBindings>
                                 <MouseBinding Command="" MouseAction="LeftClick"/>
                             </Label.InputBindings>
-                            <TextBlock Text="{Binding userDetails.followers, StringFormat=\{0\} Posts}" TextAlignment="Center" FontSize="15"/>
+                            <TextBlock Text="{Binding userDetails.postsCount, StringFormat=\{0\} Posts}" TextAlignment="Center" FontSize="15"/>
 
                         </Label>
                         <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
@@ -50,7 +50,7 @@
             </DockPanel>
             <Rectangle Fill="Black" Height="1" HorizontalAlignment="Stretch" />
             <Grid Background="#eee">
-                <ItemsControl ItemsSource="{Binding posts}">
+                <ItemsControl ItemsSource="{Binding userDetails.posts}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -58,49 +58,51 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image x:Name="imgPost" Source="{Binding url}" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image.Style>
-                                    <Style TargetType="{x:Type Image}">
-                                        <Setter Property="Height" Value="0"/>
-
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding isImage}" Value="true">
-                                                <Setter  Property="Height"  Value="300"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-
-                            </Image>
-                                <StackPanel x:Name="spVideo" Orientation="Vertical">
-                                    <StackPanel.Style>
-                                        <Style TargetType="{x:Type StackPanel}">
+                            <Border BorderBrush="Black" BorderThickness="2" Margin="5, 5, 5, 5">
+                                <Grid Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Image x:Name="imgPost" Source="{Binding url}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
                                             <Setter Property="Height" Value="0"/>
 
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                <DataTrigger Binding="{Binding isImage}" Value="true">
                                                     <Setter  Property="Height"  Value="300"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </StackPanel.Style>
-                                    <MediaElement x:Name="meVideo" Source="{Binding url}" Stretch="Uniform" LoadedBehavior="Pause" 
-            								ScrubbingEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <MediaElement.Style>
-                                            <Style TargetType="{x:Type MediaElement}">
+                                    </Image.Style>
+
+                                </Image>
+                                    <StackPanel x:Name="spVideo" Orientation="Vertical">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
                                                 <Setter Property="Height" Value="0"/>
 
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding isImage}" Value="false">
-                                                        <Setter  Property="Height"  Value="200"/>
+                                                        <Setter  Property="Height"  Value="300"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </MediaElement.Style>
-                                    </MediaElement>
-                                </StackPanel>
-                            </Grid>
+                                        </StackPanel.Style>
+                                        <MediaElement x:Name="meVideo" Source="{Binding url}" Stretch="Uniform" LoadedBehavior="Pause" 
+            								    ScrubbingEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <MediaElement.Style>
+                                                <Style TargetType="{x:Type MediaElement}">
+                                                    <Setter Property="Height" Value="0"/>
+
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding isImage}" Value="false">
+                                                            <Setter  Property="Height"  Value="200"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </MediaElement.Style>
+                                        </MediaElement>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 

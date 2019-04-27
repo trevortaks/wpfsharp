@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security;
@@ -176,9 +177,6 @@ namespace instasharp
         }
 
         public ViewModel() {
-            //var name = "trevortaks";
-            //_currentUser = new User(name, "");
-            //loadFeed();
              _likePicCommand = new likeMedia();
              _collapseMenu = new collapseMenus();
              _changeView = new changeViews();
@@ -186,7 +184,6 @@ namespace instasharp
              _loadLiker = new loadLikers();
              _closePopup = new closePopup();
              _login = new Login();
-            
         }
 
         public void Login(string username){
@@ -222,7 +219,6 @@ namespace instasharp
                     loadFeed();
                     break;
                 case 2:
-                    //loadProfile();
                     loadUserDetails();
                     break;
                 case 3:
@@ -234,7 +230,6 @@ namespace instasharp
                 case 5:
                     loadMessages();
                     break;
-
             }
         }
 
@@ -269,40 +264,46 @@ namespace instasharp
         }
 
         public void loadUserDetails(){
-            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails("trevortaks"); });
-            
-            //ppUserDetails();
+            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails("trevortaks"); }); 
+            ppUserDetails();
         }
 
         public async Task populateUserDetails(string username) 
         {
             var user = await _currentUser.getUserDetails(username);
-            var posts = await _currentUser.getUserPosts(username);
 
-
-                _userDetails.userName = user.Value.UserName;
+                _userDetails.userName = user.Value.Username;
                 _userDetails.fullName = user.Value.FullName;
-                _userDetails.followers = user.Value.FollowersCount.ToString() + "\n";
-                _userDetails.profilePic = user.Value.ProfilePicture;
+                _userDetails.followers = user.Value.FollowerCount.ToString() + "\n";
+                _userDetails.following = user.Value.FollowingCount.ToString() + "\n";
+                _userDetails.profilePic = user.Value.ProfilePicUrl;
                 _userDetails.isFollowing = user.Value.FriendshipStatus.Following;
-           
-            foreach (var post in posts.Value)
+                _userDetails.postsCount = user.Value.MediaCount.ToString() + "\n";
+                _userDetails.biography = user.Value.Biography;
+
+
+            var posts = await _currentUser.getUserPosts(username);
+            if (posts.Succeeded && posts.Value.Count > 0)
             {
-                try
+                foreach (var post in posts.Value)
                 {
-                    _userDetails.posts.Add(
-                            new Post()
-                            {
-                                url = post.Images[0].URI
-                            }
-                        );
-                }
-                catch (System.NullReferenceException)
-                {
-                    continue;
-                }
-                catch (Exception e) {
-                    continue;
+                    try
+                    {
+                        _userDetails.posts.Add(
+                                new Post()
+                                {
+                                    url = post.Images[0].Uri
+                                }
+                            );
+                    }
+                    catch (System.NullReferenceException)
+                    {
+                        continue;
+                    }
+                    catch (Exception e)
+                    {
+                        continue;
+                    }
                 }
             }
         }
@@ -325,12 +326,12 @@ namespace instasharp
                         if (media.MediaType.ToString() == "Image")
                         {
                             isImage = true;
-                            if (media.Images.Count > 0) url = media.Images[0].URI;
+                            if (media.Images.Count > 0) url = media.Images[0].Uri;
                         }
                         if (media.MediaType.ToString() == "Video")
                         {
                             //isImage = true;
-                            if (media.Videos.Count > 0) url = media.Videos[0].Url;
+                            if (media.Videos.Count > 0) url = media.Videos[0].Uri;
                         }
                         try
                         {
@@ -501,6 +502,7 @@ namespace instasharp
             _userDetails.fullName = "Trevor Takawira";
             _userDetails.followers = Convert.ToString(160) + "\n";
             _userDetails.following = Convert.ToString(10357) + "\n";
+            _userDetails.postsCount = Convert.ToString(100) + "\n";
             _userDetails.profilePic = "/assets/image.jpg";
             _userDetails.isFollowing = true;
 
@@ -546,6 +548,7 @@ namespace instasharp
 
         public void ppLikers()
         {
+            likers.Clear();
             for (int i = 0; i < 20; i++)
             {
                 _likers.Add("user" + i);
@@ -553,6 +556,27 @@ namespace instasharp
             }
         }
 
+
+        internal void loadUserFollowers(string username)
+        {
+            var followers = _currentUser.getUserFollowers(username);
+
+            likers.Clear();
+            foreach (var follower in followers.Result.Value) 
+            {
+                likers.Add(follower.UserName);
+            }
+        }
+
+        internal void loadUserFollowing(string username) 
+        {
+            var following = _currentUser.getUserFollowing(username);
+            likers.Clear();
+            foreach (var followed in following.Result.Value)
+            {
+                likers.Add(followed.UserName);
+            }
+        }
     }
 
     public class Post
@@ -584,8 +608,11 @@ namespace instasharp
         public string following { get; set; }
         public string postsCount { get; set; }
         public bool isFollowing { get; set; }
+        public string biography { get; set; }
         private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> posts { get { return _posts; } }
+
+        
     }
 
     public class joinConverter : IMultiValueConverter {
