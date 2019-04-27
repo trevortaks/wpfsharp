@@ -15,7 +15,7 @@
         <Label Content="Password" HorizontalAlignment="Left" Margin="108,147,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="pwdPwd" HorizontalAlignment="Left" Margin="309,147,0,0" VerticalAlignment="Top" Width="120" Height="26" />
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Right" Margin="0,238,201,0" VerticalAlignment="Top" Width="96" Height="34"
-                Command="{Binding DataContext.login, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
+                Command="{Binding DataContext.login, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" Click="btnLogin_Click">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
                     <Binding RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" Path="DataContext" />

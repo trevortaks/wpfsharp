@@ -35,11 +35,6 @@ namespace instasharp
             DataContext = _model;
         }
 
-        private void Play_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("New command triggered by " + e.Source.ToString());
-        }
-
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             _model.closePopup.Execute(_model);

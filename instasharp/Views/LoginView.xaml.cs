@@ -24,7 +24,17 @@ namespace instasharp
         public LoginView()
         {
             InitializeComponent();
-            _view = (ViewModel) this.DataContext;
+           // _view = (ViewModel) this.DataContext;
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null) {
+                //_view.SecurePassword = ((PasswordBox)sender).SecurePassword;
+                _view = (ViewModel)this.DataContext;
+                _view.SecurePassword = pwdPwd.SecurePassword;
+               
+            }
         }
 
         //private void pwdPwd_PasswordChanged(object sender, RoutedEventArgs e)

@@ -27,7 +27,7 @@ namespace instasharp
             var username = (string)values[1];
             var password = (PasswordBox)values[2];
 
-            _view.SecurePassword = password.SecurePassword;
+            //_view.SecurePassword = password.SecurePassword;
             _view.Login(username);
             
         }
