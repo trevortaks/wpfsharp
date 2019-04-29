@@ -5,53 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:instasharp"
              mc:Ignorable="d" Height="318" Width="499">
-    <UserControl.Resources>
-        <vm:joinConverter x:Key="joinConverter" />
-        
-        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
-            <ColorAnimationUsingKeyFrames 
-                Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-                BeginTime="-0:0:0.5"
-                >
-                <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FF0000" />
-                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FFFF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:2" Value="#00FF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:3" Value="#00FFFF" />
-                    <LinearColorKeyFrame KeyTime="0:0:4" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:5" Value="#FF0000" />
-                </ColorAnimationUsingKeyFrames.KeyFrames>
-            </ColorAnimationUsingKeyFrames>
-            <ColorAnimationUsingKeyFrames 
-                Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-                >
-                <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FF0000" />
-                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FFFF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:2" Value="#00FF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:3" Value="#00FFFF" />
-                    <LinearColorKeyFrame KeyTime="0:0:4" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:5" Value="#FF0000" />
-                </ColorAnimationUsingKeyFrames.KeyFrames>
-            </ColorAnimationUsingKeyFrames>
-        </Storyboard>
-        
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="Brush">
-            <GradientStop Offset="0"  />
-            <GradientStop Offset="1" />
-        </LinearGradientBrush>
-        
-        <Style x:Key="style" TargetType="FrameworkElement">
-            <Setter Property="Grid.Background" Value="{StaticResource Brush}" />
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Loaded" >
-                    <BeginStoryboard Storyboard="{StaticResource GradientAnimation}">
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-        
-    </UserControl.Resources>
+    
     <Grid Name="gdMain" Style="{StaticResource style}">
 
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="InstaWPF" FontFamily="{StaticResource Billabong}"

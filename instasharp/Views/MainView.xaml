@@ -80,21 +80,7 @@
                                             </Style>
                                         </MediaElement.Style>
                                     </MediaElement>-->
-                                <!--<Vlc:VlcControl x:Name="MyControl"/>-->
-                                    <!--<mekit:MediaElementPro Source="/assets/video2.mp4" ScrubbingEnabled="True">
-                                        <mekit:MediaElementPro.Style>
-                                            <Style TargetType="{x:Type mekit:MediaElementPro}">
-                                                <Setter Property="Height" Value="0"/>
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding isImage}" Value="false">
-                                                        <Setter  Property="Height"  Value="200"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </mekit:MediaElementPro.Style>
-                                    </mekit:MediaElementPro>-->
-                                    <!--<vlc:VlcControl x:Name="MyControl"></vlc:VlcControl>-->
+                                
                                 </StackPanel>
 
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>

@@ -16,6 +16,7 @@ using InstagramApiSharp.API;
 using InstagramApiSharp.API.Builder;
 using InstagramApiSharp.Logger;
 using System.IO;
+using System.Security;
 
 namespace instasharp
 {
@@ -26,9 +27,9 @@ namespace instasharp
         public string loginResult { get; private set; }
         public bool login { get; private set; }
 
-        public User(string uname, string pwd) {
+        public User(string uname, SecureString pwd) {
 
-            if (uname == "" || pwd == "")
+            if (uname == "" || pwd == null)
             {
                 loginResult = "Enter All Fields";
             }
@@ -38,13 +39,13 @@ namespace instasharp
             }
         }
 
-        private async Task<bool>  Login(string username, string password)
+        private async Task<bool>  Login(string username, SecureString password)
         {
             // create user session data and provide login details
             var userSession = new UserSessionData
             {
                 UserName = username,
-                Password = password
+                Password = new System.Net.NetworkCredential(string.Empty, password).Password
             };
 
             var delay = RequestDelay.FromSeconds(2, 2);
@@ -79,7 +80,7 @@ namespace instasharp
                     delay.Enable();
                     if (!logInResult.Succeeded)
                     {
-                        loginResult = "Unable to login:" + logInResult.Info.Message;
+                        loginResult = logInResult.Info.Message;
                        return false;
                     }
                 }
@@ -102,7 +103,7 @@ namespace instasharp
             return followers;
         }
 
-        public async Task<IResult<InstaUserShortList>> getUserFollowers(string username) 
+        public static async Task<IResult<InstaUserShortList>> getUserFollowers(string username) 
         {
             var followers = await _instaApi.UserProcessor.GetUserFollowersAsync(
                 username,
@@ -112,7 +113,7 @@ namespace instasharp
             return followers;
         }
 
-        public async Task<IResult<InstaUserInfo>> getUserDetails(string username) 
+        public static async Task<IResult<InstaUserInfo>> getUserDetails(string username) 
         {
             //var details = await _instaApi.GetUserAsync(username);
             var details = await _instaApi.UserProcessor.GetUserInfoByUsernameAsync(username);
@@ -128,7 +129,16 @@ namespace instasharp
             return posts;
         }
 
-        public async Task<IResult<InstaUserShortList>> getUserFollowing(string username) {
+        public async Task getChallenge() 
+        {
+            var challenge = await _instaApi.GetChallengeRequireVerifyMethodAsync();
+            if (challenge.Succeeded) 
+            {
+                
+            }
+        }
+
+        public static async Task<IResult<InstaUserShortList>> getUserFollowing(string username) {
             //_currentUser = await _instaApi.GetCurrentUserAsync();
             var following = await _instaApi.UserProcessor.GetUserFollowersAsync(
                 username,
@@ -164,10 +174,15 @@ namespace instasharp
             return userPosts;
         }
 
-        public async Task<IResult<InstaExploreFeed>> getExploreFeed() {
+        public static async Task<IResult<InstaExploreFeed>> getExploreFeed() {
 
             var feed = await _instaApi.FeedProcessor.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(5));
             return feed;
+        }
+
+        public async Task<IResult<InstaDirectInboxContainer>> getMessageFeed() {
+            var messageList = await _instaApi.MessagingProcessor.GetDirectInboxAsync(PaginationParameters.MaxPagesToLoad(1));
+            return messageList;
         }
 
         public async Task<string> likePost(string mediaID) {

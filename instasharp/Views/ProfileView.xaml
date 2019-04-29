@@ -26,15 +26,30 @@
                             <TextBlock Text="{Binding userDetails.postsCount, StringFormat=\{0\} Posts}" TextAlignment="Center" FontSize="15"/>
 
                         </Label>
-                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Cursor="Hand">
                             <Label.InputBindings>
-                                <MouseBinding Command="" MouseAction="LeftClick"/>
+                                <MouseBinding Command="{Binding loadFollower}" MouseAction="LeftClick" >
+                                    <MouseBinding.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext"/>
+                                            <Binding Path="userDetails.userName" />
+                                        </MultiBinding>
+                                    </MouseBinding.CommandParameter>
+                                </MouseBinding>
+                                
                             </Label.InputBindings>
                             <TextBlock Text="{Binding userDetails.followers, StringFormat=\{0\}  Followers}" TextAlignment="Center" FontSize="15"/>
                         </Label>
-                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                        <Label Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Cursor="Hand">
                             <Label.InputBindings>
-                                <MouseBinding Command="" MouseAction="LeftClick"/>
+                                <MouseBinding Command="{Binding loadFollowee}" MouseAction="LeftClick">
+                                    <MouseBinding.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext"/>
+                                            <Binding Path="userDetails.userName" />
+                                        </MultiBinding>
+                                    </MouseBinding.CommandParameter>
+                                </MouseBinding>
                             </Label.InputBindings>
                             <TextBlock Text="{Binding userDetails.following, StringFormat=\{0\} Following}" TextAlignment="Center" FontSize="15" />
                         </Label>
