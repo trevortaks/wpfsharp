@@ -12,12 +12,13 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
+using instasharp.Models;
 
 namespace instasharp
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged 
     {
-        private User _currentUser;
+        protected User _currentUser;
         
         /*
          * Responsible for 
@@ -127,7 +128,7 @@ namespace instasharp
             set
             {
                 _loadFollower = value;
-                OnPropertyChanged("login");
+                OnPropertyChanged("loadFollower");
             }
         }
 
@@ -138,7 +139,7 @@ namespace instasharp
             set
             {
                 _loadFollowee = value;
-                OnPropertyChanged("login");
+                OnPropertyChanged("loadFollowee");
             }
         }
 
@@ -213,6 +214,7 @@ namespace instasharp
              _login = new Login();
              _loadFollower = new loadFollowers();
              _loadFollowee = new loadFollowing();
+             loadList();
         }
 
         public void Login(string username){
@@ -221,7 +223,7 @@ namespace instasharp
             if (_currentUser.login) 
             {
                 popupShow = "Hidden";
-                loadFeed();  
+                loadList();  
             }
             //else if( _currentUser.loginResult == "Challenge Required")
             //{
@@ -232,8 +234,8 @@ namespace instasharp
         private void loadFeed(){
            if (_currentUser.login)
            {
-               App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
-               //loadList();
+               //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+               loadList();
                //loadUserDetails();
                //loadFollowActivity();
            }
@@ -283,8 +285,8 @@ namespace instasharp
 
 
         public void loadPostComments(string mediaID) {
-            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateComments(mediaID); });
-            //ppComments();
+            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateComments(mediaID); });
+            ppComments();
         }
 
         public void loadFollowActivity() {
@@ -312,45 +314,45 @@ namespace instasharp
             //ppLikers();
         }
 
-        private async Task populateUserDetails(string username) 
+        internal void populateUserDetails(string username) 
         {
-            var user = await User.getUserDetails(username);
-            if (user.Succeeded)
+            var user =  User.getUserDetails(username);
+            if (user.IsCompleted)
             {
-                _userDetails.userName = user.Value.Username;
-                _userDetails.fullName = user.Value.FullName;
-                _userDetails.followers = user.Value.FollowerCount.ToString() + "\n";
-                _userDetails.following = user.Value.FollowingCount.ToString() + "\n";
-                _userDetails.profilePic = user.Value.ProfilePicUrl;
-                _userDetails.isFollowing = user.Value.FriendshipStatus.Following;
-                _userDetails.postsCount = user.Value.MediaCount.ToString() + "\n";
-                _userDetails.biography = user.Value.Biography;
+                _userDetails.userName = user.Result.Value.Username;
+                _userDetails.fullName = user.Result.Value.FullName;
+                _userDetails.followers = user.Result.Value.FollowerCount.ToString() + "\n";
+                _userDetails.following = user.Result.Value.FollowingCount.ToString() + "\n";
+                _userDetails.profilePic = user.Result.Value.ProfilePicUrl;
+                _userDetails.isFollowing = user.Result.Value.FriendshipStatus.Following;
+                _userDetails.postsCount = user.Result.Value.MediaCount.ToString() + "\n";
+                _userDetails.biography = user.Result.Value.Biography;
             }
 
-            var posts = await _currentUser.getUserPosts(username);
-            if (posts.Succeeded && posts.Value.Count > 0)
-            {
-                foreach (var post in posts.Value)
-                {
-                    try
-                    {
-                        _userDetails.posts.Add(
-                                new Post()
-                                {
-                                    url = post.Images[0].Uri
-                                }
-                            );
-                    }
-                    catch (System.NullReferenceException)
-                    {
-                        continue;
-                    }
-                    catch (Exception e)
-                    {
-                        continue;
-                    }
-                }
-            }
+            //var posts = await _currentUser.getUserPosts(username);
+            //if (posts.Succeeded && posts.Value.Count > 0)
+            //{
+            //    foreach (var post in posts.Value)
+            //    {
+            //        try
+            //        {
+            //            _userDetails.posts.Add(
+            //                    new Post()
+            //                    {
+            //                        url = post.Images[0].Uri
+            //                    }
+            //                );
+            //        }
+            //        catch (System.NullReferenceException)
+            //        {
+            //            continue;
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            continue;
+            //        }
+            //    }
+            //}
         }
 
         private async Task populateFeed()
@@ -409,7 +411,7 @@ namespace instasharp
             }
         }
 
-        private async Task populateComments(string mediaID) 
+        private async Task populateComments(string mediaID)
         {
             _comments.Clear();
             var commentsList = await _currentUser.getComments(mediaID);
@@ -429,7 +431,7 @@ namespace instasharp
         private async Task populateLikers(string mediaID)
         {
             _likers.Clear();
-            var likersList = await _currentUser.getLikers(mediaID);
+            var likersList = await User.getLikers(mediaID);
 
             foreach (var liker in likersList.Value)
             {
@@ -635,47 +637,9 @@ namespace instasharp
                 _likers.Add("user" + i);
 
             }
-        }
-
-
-        
+        }    
     }
 
-    public class Post
-    {
-        public string mediaID { get; set; }
-        public int likesCount { get; set; }
-        public string caption { get; set; }
-        public string commentsCount { get; set; }
-        public string userName { get; set; }
-        public string userPic { get; set; }
-        public string url { get; set; }
-        public bool isImage { get; set; }
-        public bool isLiked { get; set; }
-        public DateTime date { get; set; }
-    }
-
-    public class Comment 
-    {
-        public string userName { get; set; }
-        public string comment { get; set; }
-    }
-
-    public class UserDetails 
-    {
-        public string userName { get; set; }
-        public string fullName { get; set; }
-        public string profilePic { get; set; }
-        public string followers { get; set; }
-        public string following { get; set; }
-        public string postsCount { get; set; }
-        public bool isFollowing { get; set; }
-        public string biography { get; set; }
-        private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
-        public ObservableCollection<Post> posts { get { return _posts; } }
-
-        
-    }
 
     public class joinConverter : IMultiValueConverter {
 

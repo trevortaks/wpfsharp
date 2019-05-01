@@ -76,6 +76,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="commands.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\UserDetails.cs" />
+    <Compile Include="ViewModels\ActivityVM.cs" />
+    <Compile Include="ViewModels\CommentsVM.cs" />
+    <Compile Include="ViewModels\LikersVM.cs" />
+    <Compile Include="ViewModels\ProfileVM.cs" />
     <Compile Include="Views\CommentsView.xaml.cs">
       <DependentUpon>CommentsView.xaml</DependentUpon>
     </Compile>
@@ -239,6 +246,7 @@
   <ItemGroup>
     <Content Include="assets\video2.mp4" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

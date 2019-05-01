@@ -20,24 +20,26 @@
                 BeginTime="-0:0:0.5"
                 >
                 <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FF0000" />
+                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FFFF00" />
                     <LinearColorKeyFrame KeyTime="0:0:3" Value="#FF00FF" />
                     <LinearColorKeyFrame KeyTime="0:0:5" Value="#00FF00" />
                     <LinearColorKeyFrame KeyTime="0:0:7" Value="#00FFFF" />
                     <LinearColorKeyFrame KeyTime="0:0:9" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#FF0000" />
+                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:13" Value="#FFFF00" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>
             <ColorAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
                 >
                 <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FF0000" />
+                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FFFF00" />
                     <LinearColorKeyFrame KeyTime="0:0:2" Value="#FF00FF" />
                     <LinearColorKeyFrame KeyTime="0:0:4" Value="#00FF00" />
                     <LinearColorKeyFrame KeyTime="0:0:6" Value="#00FFFF" />
                     <LinearColorKeyFrame KeyTime="0:0:8" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#FF0000" />
+                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:12" Value="#FFFF00" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>

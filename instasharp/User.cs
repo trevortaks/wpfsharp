@@ -195,7 +195,7 @@ namespace instasharp
             var unlikeResult = await _instaApi.MediaProcessor.UnLikeMediaAsync(media.InstaIdentifier);
         }
 
-        public async Task<IResult<InstaLikersList>> getLikers(string mediaID){
+        public static async Task<IResult<InstaLikersList>> getLikers(string mediaID){
     
             var result = await _instaApi.MediaProcessor.GetMediaLikersAsync(mediaID);
             return result;
