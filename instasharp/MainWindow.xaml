@@ -50,8 +50,8 @@
 
     <Grid Background="#000" Name="gridHome" >
 
-        <xctk:ChildWindow Visibility="{Binding popupShow}" Margin="0,0,20,20" Caption="Comments"
-                             WindowBackground="#eee" CloseButtonClicked="closeButton_Click" IsModal="True" WindowStartupLocation="Center">
+        <xctk:ChildWindow Visibility="{Binding popupShow}" Margin="0,0,20,20" WindowBackground="#eee" 
+                          CloseButtonClicked="closeButton_Click" IsModal="True" WindowStartupLocation="Center">
             <xctk:ChildWindow.Effect>
                 <DropShadowEffect BlurRadius="10" Opacity="0.3" ShadowDepth="10" RenderingBias="Quality"/>
             </xctk:ChildWindow.Effect>

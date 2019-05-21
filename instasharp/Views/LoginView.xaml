@@ -16,6 +16,10 @@
         <Label Content="Password" HorizontalAlignment="Left" Margin="105,150,0,0" VerticalAlignment="Top" Width="140" FontSize="20" FontFamily="{StaticResource Aveny}"/>
         <PasswordBox x:Name="pwdPwd" HorizontalAlignment="Left" Margin="315,150,0,0" HorizontalContentAlignment="Left"
                      VerticalAlignment="Top" Width="120" Height="30" VerticalContentAlignment="Center" />
+        
+        <Label Content ="{Binding errorMessage}" HorizontalAlignment="Center" FontSize="15" Height="46" Margin="105,0,64,83" 
+               VerticalAlignment="Bottom" Width="330" HorizontalContentAlignment="Center"/>
+        
         <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Right" Margin="0,240,200,0" VerticalAlignment="Top" Width="100" Height="30"
                 Command="{Binding DataContext.login, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" FontSize="20" FontFamily="{StaticResource Aveny}">
             <Button.CommandParameter>
@@ -26,6 +30,7 @@
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
+        
 
     </Grid>
 </UserControl>

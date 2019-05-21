@@ -1,11 +1,15 @@
-﻿<Application x:Class="instasharp.App"
+﻿ <Application x:Class="instasharp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:instasharp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <vm:joinConverter x:Key="joinConverter" />
-        
+
+        <DataTemplate x:Key="ErrorView" >
+            <vm:LoginErrorView />
+        </DataTemplate>
+
         <FontFamily x:Key="FontAwesome">./fonts/FontAwesome.otf#FontAwesome</FontFamily>
         <FontFamily x:Key="FontAwesomeRegular">./fonts/linea-basic-10.ttf#linea-basic-10</FontFamily>
 
@@ -14,7 +18,7 @@
         <FontFamily x:Key="Billabong">./fonts/Billabong.ttf#Billabong</FontFamily>
         <FontFamily x:Key="Aveny">./fonts/AvenyT_Regular.otf#Aveny T</FontFamily>
 
-        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.05">
             <ColorAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
                 BeginTime="-0:0:0.5"
@@ -25,7 +29,7 @@
                     <LinearColorKeyFrame KeyTime="0:0:5" Value="#00FF00" />
                     <LinearColorKeyFrame KeyTime="0:0:7" Value="#00FFFF" />
                     <LinearColorKeyFrame KeyTime="0:0:9" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#000FAA" />
                     <LinearColorKeyFrame KeyTime="0:0:13" Value="#FFFF00" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>
@@ -38,7 +42,7 @@
                     <LinearColorKeyFrame KeyTime="0:0:4" Value="#00FF00" />
                     <LinearColorKeyFrame KeyTime="0:0:6" Value="#00FFFF" />
                     <LinearColorKeyFrame KeyTime="0:0:8" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#000FAA" />
                     <LinearColorKeyFrame KeyTime="0:0:12" Value="#FFFF00" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>

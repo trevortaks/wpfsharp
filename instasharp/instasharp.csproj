@@ -115,8 +115,17 @@
     <Compile Include="Views\SidebarView.xaml.cs">
       <DependentUpon>SidebarView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SubViews\FeedView.xaml.cs">
+      <DependentUpon>FeedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SubViews\FollowingView.xaml.cs">
       <DependentUpon>FollowingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubViews\LoginErrorView.xaml.cs">
+      <DependentUpon>LoginErrorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubViews\NoConnectionView.xaml.cs">
+      <DependentUpon>NoConnectionView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\CommentsView.xaml">
       <SubType>Designer</SubType>
@@ -170,7 +179,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SubViews\FeedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SubViews\FollowingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubViews\LoginErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubViews\NoConnectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

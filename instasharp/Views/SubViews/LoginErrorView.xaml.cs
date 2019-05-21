@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace instasharp.Views
+namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for ExploreView.xaml
+    /// Interaction logic for LoginErrorView.xaml
     /// </summary>
-    public partial class ExploreView : UserControl
+    public partial class LoginErrorView : UserControl
     {
-        public ExploreView()
+        public LoginErrorView()
         {
             InitializeComponent();
         }
-
     }
 }

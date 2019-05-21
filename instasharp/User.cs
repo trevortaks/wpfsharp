@@ -29,14 +29,49 @@ namespace instasharp
 
         public User(string uname, SecureString pwd) {
 
-            if (uname == "" || pwd == null)
+            if (uname == "" || pwd.Length == 0)
             {
                 loginResult = "Enter All Fields";
+                return ;
             }
             else
             {
                 login = Task.Run(() => Login(uname, pwd)).GetAwaiter().GetResult();
             }
+        }
+
+        public User() {
+            login = Login();
+        }
+
+        private bool Login() 
+        {
+            var delay = RequestDelay.FromSeconds(2, 2);
+            // create new InstaApi instance using Builder
+            _instaApi = InstaApiBuilder.CreateBuilder()
+                .SetUser(UserSessionData.Empty)
+                .UseLogger(new DebugLogger(LogLevel.Exceptions)) // use logger for requests and debug messages
+                .SetRequestDelay(delay)
+                .Build();
+
+            const string stateFile = "state.bin";
+            try
+            {
+                if (File.Exists(stateFile))
+                {
+                    Console.WriteLine(@"Loading state from file");
+                    using (var fs = File.OpenRead(stateFile))
+                    {
+                        _instaApi.LoadStateDataFromStream(fs);
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return false; 
         }
 
         private async Task<bool>  Login(string username, SecureString password)

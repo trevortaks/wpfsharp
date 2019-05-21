@@ -198,6 +198,8 @@ namespace instasharp
             _view = (ViewModel)values;
            
             _view.popupShow = "Hidden";
+            _view.userLogin = false;
+            _view.loadFeed();
         }
     }
 }

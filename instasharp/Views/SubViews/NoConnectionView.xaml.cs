@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace instasharp.Views
+namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for ExploreView.xaml
+    /// Interaction logic for NoConnectionView.xaml
     /// </summary>
-    public partial class ExploreView : UserControl
+    public partial class NoConnectionView : UserControl
     {
-        public ExploreView()
+        public NoConnectionView()
         {
             InitializeComponent();
         }
-
     }
 }

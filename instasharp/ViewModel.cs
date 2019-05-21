@@ -198,10 +198,30 @@ namespace instasharp
             set;
         }
 
+        private bool _userLogin;
+        public bool userLogin 
+        {
+            get { return _userLogin; }
+            set {
+                _userLogin = value;
+                OnPropertyChanged("userLogin");
+            }
+        }
+
         public SecureString SecurePassword
         {
             get;
             set;
+        }
+
+        private string _errorMessage;
+        public string errorMessage 
+        {
+            get { return _errorMessage; }
+            set{
+                _errorMessage = value;
+                OnPropertyChanged("errorMessage");
+            }
         }
 
         public ViewModel() {
@@ -214,35 +234,50 @@ namespace instasharp
              _login = new Login();
              _loadFollower = new loadFollowers();
              _loadFollowee = new loadFollowing();
-             loadList();
+             //userLogin = null;
+
+             const string stateFile = "state.bin";
+
+             if (File.Exists(stateFile))
+             {
+                 _currentUser = new User(); 
+             }
+
+             if (_currentUser.login)
+             {
+                 userLogin = true;
+                 popupShow = "Hidden";
+                 //loadList();
+                 loadFeed();
+             }
         }
 
         public void Login(string username){
-
+            
             _currentUser = new User(username, SecurePassword);
+            
             if (_currentUser.login) 
             {
+                userLogin = true;
                 popupShow = "Hidden";
-                loadList();  
+                //loadList();
+                loadFeed();
             }
-            //else if( _currentUser.loginResult == "Challenge Required")
-            //{
-            
-            //}
+            else
+            {
+                errorMessage = _currentUser.loginResult;
+            }
         }
 
-        private void loadFeed(){
-           if (_currentUser.login)
+        public void loadFeed(){
+           if (userLogin)
            {
                //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
                loadList();
-               //loadUserDetails();
-               //loadFollowActivity();
            }
            else
            {
                loadList();
-               //loadFollowActivity();
            }
        }
 
@@ -275,7 +310,9 @@ namespace instasharp
 
         private void loadExplore()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            //populateExploreFeed();
+            loadList();
         }
 
         private void loadProfile()
@@ -290,8 +327,8 @@ namespace instasharp
         }
 
         public void loadFollowActivity() {
-            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFollowActivity(); });
-            //ppFollowActivity();
+            //App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFollowActivity(); });
+            ppFollowActivity();
         }
 
         public void loadPostLikers(string mediaID) {
