@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace instasharp.Views
+namespace instasharp
 {
     /// <summary>
-    /// Interaction logic for ExploreView.xaml
+    /// Interaction logic for FeedView.xaml
     /// </summary>
-    public partial class ExploreView : UserControl
+    public partial class FeedView : UserControl
     {
-        public ExploreView()
+        public FeedView()
         {
             InitializeComponent();
         }
-
     }
 }

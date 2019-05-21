@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using instasharp.ViewModels;
 
 namespace instasharp
 {
@@ -22,7 +23,9 @@ namespace instasharp
     {
         public CommentsView()
         {
+            
             InitializeComponent();
+            
         }
     }
 }

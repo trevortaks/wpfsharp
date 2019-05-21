@@ -1,4 +1,5 @@
-﻿using System;
+﻿using instasharp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,7 +108,6 @@ namespace instasharp
             _view.selectedPopup = select;
             _view.popupShow = "Visible";
             _view.loadPostComments(mediaID);
-            
 
         }
     }
@@ -135,6 +135,53 @@ namespace instasharp
         }
     }
 
+    class loadFollowers : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter)
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter)
+        {
+            var values = (object[])Parameter;
+           _view = (ViewModel)values[0];
+            string username = (string)values[1];
+            //_view = new CommentsVM();
+           _view.loadUserFollowers(username);
+            
+            _view.popupShow = "Visible";
+            _view.selectedPopup = 0;
+
+            
+        } 
+    }
+
+    class loadFollowing : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter)
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter)
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            string username = (string)values[1];
+
+            _view.loadUserFollowing(username);
+            _view.popupShow = "Visible";
+            _view.selectedPopup = 0;
+        }
+    }
+
     class closePopup : ICommand
     {
         ViewModel _view;
@@ -151,6 +198,8 @@ namespace instasharp
             _view = (ViewModel)values;
            
             _view.popupShow = "Hidden";
+            _view.userLogin = false;
+            _view.loadFeed();
         }
     }
 }
