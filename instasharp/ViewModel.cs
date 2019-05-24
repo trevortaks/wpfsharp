@@ -236,22 +236,22 @@ namespace instasharp
              _login = new Login();
              _loadFollower = new loadFollowers();
              _loadFollowee = new loadFollowing();
-             //userLogin = null;
 
              const string stateFile = "state.bin";
 
              if (File.Exists(stateFile))
              {
-                 _currentUser = new User(); 
+                 _currentUser = new User();
+
+                 if (_currentUser.login)
+                 {
+                     userLogin = true;
+                     popupShow = "Hidden";
+                     loadFeed();
+                 }
              }
 
-             if (_currentUser.login)
-             {
-                 userLogin = true;
-                 popupShow = "Hidden";
-                 //loadList();
-                 loadFeed();
-             }
+             
         }
 
         public void Login(string username){
@@ -262,7 +262,6 @@ namespace instasharp
             {
                 userLogin = true;
                 popupShow = "Hidden";
-                //loadList();
                 loadFeed();
             }
             else
@@ -273,15 +272,8 @@ namespace instasharp
         }
 
         public void loadFeed(){
-           if (userLogin)
-           {
-               App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
-           }
-           else
-           {
-               throw new System.Net.WebException();
-           }
-       }
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+        }
 
         public void loadViews() 
         {
