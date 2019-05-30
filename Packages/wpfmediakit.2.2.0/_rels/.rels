@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Type="http://schemas.microsoft.com/packaging/2010/07/manifest" Target="/WPFMediaKit.nuspec" Id="Rfd3a329d297d45c6" />
+  <Relationship Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="/package/services/metadata/core-properties/88029554d1fa44b88b13501b857f58fa.psmdcp" Id="Re73beb25f155413e" />
+</Relationships>

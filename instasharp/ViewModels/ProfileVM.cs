@@ -29,7 +29,7 @@ namespace instasharp.ViewModels
 
         public async Task populateUserDetails() 
         {
-            var user = User.getUserDetails(username);
+            var user = User.getUserDetails(uname);
             if (user.IsCompleted)
             {
                 _userDetails.userName = user.Result.Value.Username;
@@ -42,7 +42,7 @@ namespace instasharp.ViewModels
                 _userDetails.biography = user.Result.Value.Biography;
             }
 
-            var posts = await _currentUser.getUserPosts(username);
+            var posts = await _currentUser.getUserPosts(uname);
             if (posts.Succeeded && posts.Value.Count > 0)
             {
                 foreach (var post in posts.Value)

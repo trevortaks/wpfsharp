@@ -51,10 +51,10 @@
                 </StackPanel.InputBindings>
                 <Ellipse Width="50" Height="50" Margin="10, 0, 0, 0">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="../assets/image.jpg"/>
+                        <ImageBrush ImageSource="{Binding profilePicUrl}"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Label x:Name="btnUsername" Content="{Binding name}" VerticalAlignment="Center"
+                <Label x:Name="btnUsername" Content="{Binding userName}" VerticalAlignment="Center"
             		Height="50" Margin="10,10,0,0" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             </StackPanel>
 

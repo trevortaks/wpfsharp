@@ -6,30 +6,27 @@
              xmlns:local ="clr-namespace:instasharp"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid Background="#eee">
         <StackPanel Orientation="Vertical">
             <!--<DataGrid ItemsSource="{Binding}" Margin="10" />-->
-            <Border x:Name="LayoutRoot" Background="White" BorderBrush="Black" BorderThickness="1" Margin="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <ItemsControl ItemsSource="{Binding posts}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition /> 
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                            </Grid>
+                            <WrapPanel />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            
+                            <Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="10">
+                                <Image Source="{Binding url}" Width="200" Height="200"/>
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
             
                 </ItemsControl>
-            </Border>
+            </ScrollViewer>
         </StackPanel>
             
     </Grid>

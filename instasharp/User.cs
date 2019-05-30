@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using InstaSharper;
-//using InstaSharper.Classes;
-//using InstaSharper.Classes.Models;
-//using InstaSharper.API.Builder;
-//using InstaSharper.Logger;
-//using InstaSharper.API;
 using InstagramApiSharp;
 using InstagramApiSharp.Classes;
 using InstagramApiSharp.Classes.Models;
@@ -24,6 +18,10 @@ namespace instasharp
     {
         private static IInstaApi _instaApi;
         IResult<InstaCurrentUser> _currentUser = null;
+        public IResult<InstaCurrentUser> currentUser {
+            get { return _currentUser; }
+            private set { _currentUser = value; }
+        }
         public string loginResult { get; private set; }
         public bool login { get; private set; }
 
@@ -41,10 +39,10 @@ namespace instasharp
         }
 
         public User() {
-            login = Login();
+            login = Task.Run(() => Login()).GetAwaiter().GetResult();
         }
 
-        private bool Login() 
+        private async Task<bool> Login() 
         {
             var delay = RequestDelay.FromSeconds(2, 2);
             // create new InstaApi instance using Builder
@@ -64,6 +62,7 @@ namespace instasharp
                     {
                         _instaApi.LoadStateDataFromStream(fs);
                     }
+                    _currentUser = await _instaApi.GetCurrentUserAsync();
                     return true;
                 }
             }
@@ -125,6 +124,7 @@ namespace instasharp
                 state.Seek(0, SeekOrigin.Begin);
                 state.CopyTo(fileStream);
             }
+            _currentUser = await _instaApi.GetCurrentUserAsync();
             return true;
         }
 
