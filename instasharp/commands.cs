@@ -49,7 +49,7 @@ namespace instasharp
             _view = (ViewModel)values[0];
             var mediaID = (string)values[1];
 
-            _view.likeMedia(mediaID);
+            //_view.likeMedia(mediaID);
         }
     }
 
@@ -182,6 +182,49 @@ namespace instasharp
         }
     }
 
+    class loadLogin : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter) 
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(object Parameter) 
+        {
+            var values = (object)Parameter;
+            _view = (ViewModel)values;
+            
+            _view.popupShow = "Visible";
+            _view.selectedPopup = 2;
+        }
+    }
+
+    class loadProfile : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(object Parameter)
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter)
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            var selectedOptio = values[1].ToString();
+            var selectedOption = Convert.ToInt32(selectedOptio);
+            var username = values[2].ToString();
+
+            _view.selectedView = selectedOption;
+            _view.loadUserDetails(username);
+        }
+    }
+
     class closePopup : ICommand
     {
         ViewModel _view;
@@ -197,9 +240,33 @@ namespace instasharp
             var values = (object)Parameter;
             _view = (ViewModel)values;
            
+
             _view.popupShow = "Hidden";
-            _view.userLogin = false;
-            _view.loadFeed();
+            if (_view.selectedPopup == 2)
+            {
+                _view.userLogin = 1;
+            }
+            //_view.loadFeed();
+        }
+    }
+
+    class saveImage : ICommand 
+    {
+        ViewModel _view;
+        public bool CanExecute(Object Parameter) 
+        {
+            return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(Object Parameter) 
+        {
+            var values = (object[])Parameter;
+            _view = (ViewModel)values[0];
+            string url = (string)values[1];
+
+           Task.Run(() => _view.getImage(url));
         }
     }
 }

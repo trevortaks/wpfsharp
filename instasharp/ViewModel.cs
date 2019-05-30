@@ -13,6 +13,9 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using instasharp.Models;
+using MediaElementKit;
+using System.Drawing;
+using System.Net;
 
 namespace instasharp
 {
@@ -21,9 +24,6 @@ namespace instasharp
 
         protected User _currentUser;
         
-        /*
-         * Responsible for 
-         */
         private ICommand _likePicCommand;
         public ICommand likePic {
             get { return _likePicCommand; }
@@ -144,6 +144,39 @@ namespace instasharp
             }
         }
 
+        private ICommand _loadLogin;
+        public ICommand loadLogin
+        {
+            get { return _loadLogin; }
+            set
+            {
+                _loadLogin = value;
+                OnPropertyChanged("loadLogin");
+            }
+        }
+
+        private ICommand _loadDetails;
+        public ICommand loadDetails
+        {
+            get { return _loadDetails; }
+            set
+            {
+                _loadDetails = value;
+                OnPropertyChanged("loadLogin");
+            }
+        }
+
+        private ICommand _saveMedia;
+        public ICommand saveMedia
+        {
+            get { return _saveMedia; }
+            set
+            {
+                _saveMedia = value;
+                OnPropertyChanged("saveMedia");
+            }
+        }
+
         private ObservableCollection<Post> _feedPosts = new ObservableCollection<Post>();
         public ObservableCollection<Post> feedPosts
         {
@@ -193,14 +226,29 @@ namespace instasharp
             }
         }
 
-        public string username
+        private string _userName;
+        public string userName
         {
-            get;
-            set;
+            get { return _userName; }
+            set
+            {
+                _userName = value;
+                OnPropertyChanged("profilePicUrl");
+            }
         }
 
-        private bool _userLogin;
-        public bool userLogin 
+        private string _profilePicUrl;
+        public string profilePicUrl
+        {
+            get { return _profilePicUrl; }
+            set {
+                _profilePicUrl = value;
+                OnPropertyChanged("profilePicUrl");
+            }
+        }
+
+        private int _userLogin = 1;
+        public int userLogin 
         {
             get { return _userLogin; }
             set {
@@ -236,22 +284,37 @@ namespace instasharp
              _login = new Login();
              _loadFollower = new loadFollowers();
              _loadFollowee = new loadFollowing();
+             _loadLogin = new loadLogin();
+             _saveMedia = new saveImage();
+             _loadDetails = new loadProfile();
 
              const string stateFile = "state.bin";
 
              if (File.Exists(stateFile))
              {
-                 _currentUser = new User();
 
-                 if (_currentUser.login)
+                 try
                  {
-                     userLogin = true;
-                     popupShow = "Hidden";
-                     loadFeed();
+                     _currentUser = new User();
+                     if (_currentUser.login)
+                     {
+                         userLogin = 2;
+                         popupShow = "Hidden";
+                         userName = _currentUser.currentUser.Value.UserName;
+                         profilePicUrl = _currentUser.currentUser.Value.ProfilePicUrl;
+                         loadFeed();
+                     }
                  }
+                 catch (System.NullReferenceException e) {
+                     //System.Windows.MessageBox.Show("Error in Sending Request: Check your connection and try again");
+                     userLogin = 3;
+                 }
+
+                 
              }
 
-             
+             //MediaElementPro me = new MediaElementPro();
+
         }
 
         public void Login(string username){
@@ -260,8 +323,10 @@ namespace instasharp
             
             if (_currentUser.login) 
             {
-                userLogin = true;
+                userLogin = 2;
                 popupShow = "Hidden";
+                userName = _currentUser.currentUser.Value.UserName;
+                profilePicUrl = _currentUser.currentUser.Value.ProfilePicUrl;
                 loadFeed();
             }
             else
@@ -271,9 +336,7 @@ namespace instasharp
 
         }
 
-        public void loadFeed(){
-            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
-        }
+
 
         public void loadViews() 
         {
@@ -297,6 +360,10 @@ namespace instasharp
             }
         }
 
+        private void loadFeed(){
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateFeed(); });
+        }
+
         private void loadMessages()
         {
             throw new NotImplementedException();
@@ -305,9 +372,11 @@ namespace instasharp
         private void loadExplore()
         {
             throw new NotImplementedException();
+            //populateExploreFeed();
+
         }
 
-        private void loadProfile()
+        private void loadProfile()   
         {
             throw new NotImplementedException();
         }
@@ -327,6 +396,11 @@ namespace instasharp
 
         public void loadUserDetails(){
             App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails("trevortaks"); }); 
+        }
+
+        public void loadUserDetails(string uname)
+        {
+            App.Current.Dispatcher.BeginInvoke((Action)delegate() { populateUserDetails(uname); });
         }
 
         public void loadUserFollowers(string uname) {
@@ -422,7 +496,7 @@ namespace instasharp
                     {
                         continue;
                     }
-                }          
+                }        
             }
             else 
             {
@@ -438,11 +512,11 @@ namespace instasharp
             foreach (var comment in commentsList.Value.Comments)
             {
                 _comments.Add(
-                    new Comment
-                    {
-                        userName = comment.User.UserName,
-                        comment = comment.Text
-                    }
+                        new Comment
+                        {
+                            userName = comment.User.UserName,
+                            comment = comment.Text
+                        }
                     );
             }
         }
@@ -467,6 +541,8 @@ namespace instasharp
             }
         }
 
+        
+
         internal void populateUserFollowers(string username)
         {
             var followers = User.getUserFollowers(username);
@@ -480,7 +556,7 @@ namespace instasharp
 
         internal void populateUserFollowing(string username)
         {
-            var following = User.getUserFollowing(username);
+            var following =  User.getUserFollowing(username);
             likers.Clear();
             foreach (var followed in following.Result.Value)
             {
@@ -495,7 +571,7 @@ namespace instasharp
                 feedPosts.Add(
                     new Post
                     {
-                        caption  = item.Caption.Text,
+                       caption  = item.Caption.Text,
                        url = item.Images[0].Uri,
                        likesCount = item.LikesCount,
                        mediaID = item.InstaIdentifier
@@ -507,7 +583,43 @@ namespace instasharp
         public void likeMedia(string mediaID)
         {
             var result = Task.Run(() => _currentUser.likePost(mediaID)).GetAwaiter().GetResult();
+        }
 
+        public async Task getImage(string url)
+        {
+            Image image = await downloadMedia(url);
+
+            string rootpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+            string filepath = System.IO.Path.Combine(rootpath + @"\Pictures\Saved Pictures\image.jpg");
+
+            image.Save(filepath, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+        }
+
+        public Task<Image> downloadMedia(string url) 
+        {
+            Image image = null;
+
+            try
+            {
+                HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+                webrequest.AllowWriteStreamBuffering = true;
+                webrequest.Timeout = 50000;
+
+                WebResponse webresponse = webrequest.GetResponse();
+                System.IO.Stream stream =  webresponse.GetResponseStream();
+
+                image = Image.FromStream(stream);
+
+                webresponse.Close();
+            }
+            catch (Exception e) 
+            {
+                return null;
+            }
+
+            return Task.Run(() => { return image; });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

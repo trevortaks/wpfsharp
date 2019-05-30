@@ -4,6 +4,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
         xmlns:vm="clr-namespace:instasharp"
         xmlns:lib="clr-namespace:instasharp.Views"
+        Icon="/assets/logo.ico"
         Title="InstaWPF" Height="750" Width="1250">
   
     <Window.Resources>
@@ -48,16 +49,13 @@
        
     </Window.Resources>
 
-    <Grid Background="#000" Name="gridHome" >
+    <Grid Background="Black" Name="gridHome" >
 
         <xctk:ChildWindow Visibility="{Binding popupShow}" Margin="0,0,20,20" WindowBackground="#eee" 
                           CloseButtonClicked="closeButton_Click" IsModal="True" WindowStartupLocation="Center">
             <xctk:ChildWindow.Effect>
                 <DropShadowEffect BlurRadius="10" Opacity="0.3" ShadowDepth="10" RenderingBias="Quality"/>
             </xctk:ChildWindow.Effect>
-        <!--<Popup Name="ppLogin" Placement="Relative" HorizontalOffset="300" VerticalOffset="100" Width="500" Height="300"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" IsOpen="{Binding popupShow}" PopupAnimation="Fade"
-                   AllowsTransparency="True">-->
                 <Grid Width="500" Height="300">
                     <Border Background="White">
                         <ContentControl Name="ccLogin" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type xctk:ChildWindow}}}">
@@ -80,7 +78,6 @@
                         </ContentControl>
                     </Border>
                 </Grid>
-            <!--</Popup>-->
         </xctk:ChildWindow>
         <DockPanel x:Name="dpDock" Style="{StaticResource styleBlur}">
             <!--<DockPanel.Style ></DockPanel.Style>-->

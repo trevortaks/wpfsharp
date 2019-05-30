@@ -24,5 +24,10 @@ namespace instasharp
         {
             InitializeComponent();
         }
+
+        private void btnLoginErr_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

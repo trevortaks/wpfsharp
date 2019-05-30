@@ -4,13 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mekit="clr-namespace:MediaElementKit;assembly=MediaElementKit"
-             xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
              xmlns:vm="clr-namespace:instasharp"
              xmlns:carousel="clr-namespace:FluidKit.Controls;assembly=FluidKit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <vm:joinConverter x:Key="joinConverter" />
         <DataTemplate x:Key="FeedView" DataType="{x:Type vm:ViewModel}">
             <vm:FeedView />
         </DataTemplate>
@@ -23,13 +21,16 @@
                     <Style TargetType="ContentControl" >
                         <!--<Setter Property="ContentTemplate" Value="{StaticResource lblTxt}"/>-->
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding userLogin}" Value="false">
+                            <DataTrigger Binding="{Binding userLogin}" Value="1">
                                 <Setter Property="ContentTemplate" Value="{StaticResource ErrorView}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding userLogin}" Value="true">
+                            <DataTrigger Binding="{Binding userLogin}" Value="2">
                                 <Setter Property="ContentTemplate" Value="{StaticResource FeedView}" />
                             </DataTrigger>
-                        </Style.Triggers>
+                            <DataTrigger Binding="{Binding userLogin}" Value="3">
+                                <Setter Property="ContentTemplate" Value="{StaticResource NoConnectionView}" />
+                            </DataTrigger>
+                    </Style.Triggers>
                     </Style>
                 </ContentControl.Style>
             </ContentControl>

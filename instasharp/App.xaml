@@ -10,6 +10,10 @@
             <vm:LoginErrorView />
         </DataTemplate>
 
+        <DataTemplate x:Key="NoConnectionView" DataType="{x:Type vm:ViewModel}">
+            <vm:NoConnectionView />
+        </DataTemplate>
+
         <FontFamily x:Key="FontAwesome">./fonts/FontAwesome.otf#FontAwesome</FontFamily>
         <FontFamily x:Key="FontAwesomeRegular">./fonts/linea-basic-10.ttf#linea-basic-10</FontFamily>
 
@@ -21,29 +25,29 @@
         <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.05">
             <ColorAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-                BeginTime="-0:0:0.5"
+                BeginTime="-0:0:0.5" AutoReverse="True"
                 >
                 <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FFFF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:3" Value="#FF00FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:5" Value="#00FF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:7" Value="#00FFFF" />
-                    <LinearColorKeyFrame KeyTime="0:0:9" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#000FAA" />
-                    <LinearColorKeyFrame KeyTime="0:0:13" Value="#FFFF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#D40707" />
+                    <LinearColorKeyFrame KeyTime="0:0:3" Value="#D40754" />
+                    <LinearColorKeyFrame KeyTime="0:0:5" Value="#D407CD" />
+                    <LinearColorKeyFrame KeyTime="0:0:7" Value="#8907D4" />
+                    <LinearColorKeyFrame KeyTime="0:0:9" Value="#1F07D4" />
+                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#07BED4" />
+                    <LinearColorKeyFrame KeyTime="0:0:13" Value="#07D441" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>
             <ColorAnimationUsingKeyFrames 
                 Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-                >
+                AutoReverse="True" >
                 <ColorAnimationUsingKeyFrames.KeyFrames>
-                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FFFF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:2" Value="#FF00FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:4" Value="#00FF00" />
-                    <LinearColorKeyFrame KeyTime="0:0:6" Value="#00FFFF" />
-                    <LinearColorKeyFrame KeyTime="0:0:8" Value="#0000FF" />
-                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#000FAA" />
-                    <LinearColorKeyFrame KeyTime="0:0:12" Value="#FFFF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#D40707" />
+                    <LinearColorKeyFrame KeyTime="0:0:2" Value="#D40754" />
+                    <LinearColorKeyFrame KeyTime="0:0:4" Value="#D407CD" />
+                    <LinearColorKeyFrame KeyTime="0:0:6" Value="#8907D4" />
+                    <LinearColorKeyFrame KeyTime="0:0:8" Value="#1F07D4" />
+                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#07BED4" />
+                    <LinearColorKeyFrame KeyTime="0:0:12" Value="#07D441" />
                 </ColorAnimationUsingKeyFrames.KeyFrames>
             </ColorAnimationUsingKeyFrames>
         </Storyboard>

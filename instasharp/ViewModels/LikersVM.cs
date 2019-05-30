@@ -33,7 +33,7 @@ namespace instasharp.ViewModels
 
         public void populateFollowers(string uname) 
         {
-            var followers = User.getUserFollowers(username);
+            var followers = User.getUserFollowers(uname);
 
             likers.Clear();
             foreach (var follower in followers.Result.Value)
@@ -44,7 +44,7 @@ namespace instasharp.ViewModels
 
         public void populateFollowinng(string uname) 
         {
-            var following = User.getUserFollowing(username);
+            var following = User.getUserFollowing(uname);
             likers.Clear();
             foreach (var followed in following.Result.Value)
             {

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:carousel="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+             xmlns:me ="clr-namespace:MediaElementKit;assembly=MediaElementKit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -30,7 +31,20 @@
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <Label x:Name="btnUsername" Content="{Binding userName}" VerticalAlignment="Center"
-            								Height="40" Margin="10,10,0,0" FontWeight="Bold" />
+            								Height="40" Margin="10,10,0,0" FontWeight="Bold" >
+                                        <Label.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick"
+                                                          Command="{Binding DataContext.loadDetails, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}" Path="DataContext" />
+                                                        <Binding Source="2" />
+                                                        <Binding Path="userName"  />
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Label.InputBindings>
+                                    </Label>
                                 </StackPanel>
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                                 <carousel:TransitionPresenter x:Name="_transContainer" >
@@ -49,7 +63,7 @@
 
                                     </Image>
                                 </carousel:TransitionPresenter>
-                                <StackPanel x:Name="spVideo" Orientation="Vertical">
+                                <StackPanel x:Name="spVideo" Orientation="Vertical" VerticalAlignment="Center">
                                     <StackPanel.Style>
                                         <Style TargetType="{x:Type StackPanel}">
                                             <Setter Property="Height" Value="0"/>
@@ -61,27 +75,27 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <!--<MediaElement x:Name="meVideo" Source="/assets/video_image.jpg" Stretch="Uniform" LoadedBehavior="Pause" 
-            								ScrubbingEnabled="True">
-                                        <MediaElement.Style>
-                                            <Style TargetType="{x:Type MediaElement}">
+                                    <me:MediaElementPro Name="meVideo" Source="{Binding url}" Stretch="Uniform" ScrubbingEnabled="True"
+                                                        Background="Black" MouseDown="meVideo_MouseDown_1" VerticalAlignment="Center"
+                                                        Loaded="meVideo_Loaded_1">
+                                        <me:MediaElementPro.Style>
+                                            <Style TargetType="{x:Type me:MediaElementPro}">
                                                 <Setter Property="Height" Value="0"/>
 
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding isImage}" Value="false">
-                                                        <Setter  Property="Height"  Value="200"/>
+                                                        <Setter  Property="Height"  Value="300"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </MediaElement.Style>
-                                    </MediaElement>-->
-
+                                        </me:MediaElementPro.Style>
+                                    </me:MediaElementPro>
                                 </StackPanel>
 
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                                 <StackPanel Orientation="Horizontal" Height="40">
                                     <Label x:Name="btnLike" Width="50" Background="Transparent" FontSize="30" 
-            							BorderBrush="Transparent" Cursor="Hand" FontWeight="Thin">
+            							BorderBrush="Transparent" Cursor="Hand" FontWeight="Thin" MouseDown="btnLike_MouseDown_1">
                                         <Label.InputBindings>
                                             <MouseBinding MouseAction="LeftClick"
                                                           Command="{Binding DataContext.likePic, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
@@ -110,8 +124,22 @@
                                     </Label>
                                     <Label x:Name="btnComment" Content="," Width="50" Background="Transparent" FontSize="30" 
             								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
-                                    <Label x:Name="btnDM" Content=">" Width="50" Background="Transparent" FontSize="30" 
+                                    <Label x:Name="btnDM" Content=">" Width="50" Background="Transparent" FontSize="28" 
             								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand"/>
+                                    <Label x:Name="btnDownload" Content="M" Width="50" Background="Transparent" FontSize="28" 
+            								FontFamily="{StaticResource FontAwesomeRegular}" BorderBrush="Transparent" Cursor="Hand">
+                                        <Label.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick"
+                                                          Command="{Binding DataContext.saveMedia, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}" Path="DataContext" />
+                                                        <Binding Path="url"  />
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Label.InputBindings>
+                                    </Label>
                                 </StackPanel>
                                 <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1"/>
                                 <Label x:Name="lblLikes" Cursor="Hand">
