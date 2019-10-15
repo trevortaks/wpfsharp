@@ -1,0 +1,517 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"set",
+				"setupdrv"
+			],
+			[
+				"font",
+				"font-size\tproperty"
+			],
+			[
+				"body",
+				"body-content"
+			],
+			[
+				"fa",
+				"false"
+			],
+			[
+				"conta",
+				"container"
+			],
+			[
+				"s",
+				"section"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"ga",
+				"gallery-box"
+			],
+			[
+				"gallery",
+				"gallery-grids"
+			],
+			[
+				"c",
+				"disc\tlist-style"
+			],
+			[
+				"a",
+				"armenian\tlist-style"
+			],
+			[
+				"pr",
+				"progress-bar"
+			],
+			[
+				"col",
+				"color\tproperty"
+			],
+			[
+				"fil",
+				"filename"
+			],
+			[
+				"fl",
+				"file"
+			],
+			[
+				"border",
+				"border-width\tproperty"
+			],
+			[
+				"f",
+				"for\tFor Loop"
+			],
+			[
+				"re",
+				"requests"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Program Files (x86)/EasyPHP-Devserver-17/eds-modules/phpmyadmin470x190625102229/config.inc.php",
+			"settings":
+			{
+				"buffer_size": 4861,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/xampp/htdocs/dashboard/stylesheets/all.css",
+			"settings":
+			{
+				"buffer_size": 481698,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Trevor Takawira/Documents/Net Core/webApp/Program.cs",
+			"settings":
+			{
+				"buffer_size": 688,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 524.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp"
+	],
+	"file_history":
+	[
+		"/C/projects/microblog/app/routes.py",
+		"/C/Users/Trevor Takawira/.vscode/extensions/ms-vscode.csharp-1.15.2/.vsixmanifest",
+		"/C/Users/Trevor Takawira/Documents/Net Core/webApp/Startup.cs",
+		"/C/Program Files (x86)/EasyPHP-Devserver-17/eds-binaries/dbserver/mysql5717x86x190625102229/data/auto.cnf",
+		"/C/Program Files (x86)/EasyPHP-Devserver-17/eds-binaries/dbserver/mysql5717x86x190625102229/README",
+		"/C/Program Files (x86)/EasyPHP-Devserver-17/eds-binaries/dbserver/mysql5717x86x190625102229/my-default.ini",
+		"/C/Program Files (x86)/EasyPHP-Devserver-17/eds-binaries/dbserver/mysql5717x86x190625102229/my.ini",
+		"/C/Program Files (x86)/EasyPHP-Devserver-17/eds-binaries/dbserver/mysql5717x86x190625102229/data/performance_schema/users.frm",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/ViewModel.cs",
+		"/C/Users/Trevor Takawira/Documents/Net Core/Test/MainWindow.xaml",
+		"/C/Users/Trevor Takawira/Documents/Net Core/Test/MainWindow.xaml.cs",
+		"/C/Users/Trevor Takawira/Documents/Net Core/webApp/Program.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/commands.cs",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/prebuilt-omnisharp-roslyn/omnisharp.cmd",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/docs/index.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp.sublime-project",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/MainWindow.xaml.cs",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/scripts/build.sh",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/build.cmd",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/scripts/prepare.sh",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/build.sh",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/User.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Collection.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Comment.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Program.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/CollectionSample.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/CommentMedia.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/Discover.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/Logger/DebugLogger.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/InstagramApiSharp.csproj",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/Earthquake/Earthquake/pic/query.json",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Business-account.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Live.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper.Examples/Program.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper.wiki/Creating-issues-guideline-(template).md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper.wiki/Difference-between-API-Web-and-just-API-repositories.md",
+		"/C/Users/Trevor Takawira/Documents/Codeblocks Projects/employee/main.cpp",
+		"/C/Users/Trevor Takawira/Documents/Codeblocks Projects/MyTable/main.cpp",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/App.xaml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.exe.config",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.exe.CodeAnalysisLog.xml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.application",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/Packages.dgml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.exe.lastcodeanalysissucceeded",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.pdb",
+		"/D/Series/Marvels Jessica Jones S01/Marvels Jessica Jones S01E02 720p WebRip x265 ~ARIZONE.srt",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/ColorHighlighter/README.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/Views/LoginView.xaml",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/Color Highlighter/ColorHighlighter.sublime-settings",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/User/ColorHighlighter.sublime-settings",
+		"/C/Users/Trevor Takawira/AppData/Roaming/Sublime Text 3/Packages/ColorPicker/Default (Windows).sublime-keymap",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/instasharp.csproj",
+		"/C/Program Files (x86)/Windows Kits/8.0/Lib/win8/um/arm/kernel32.Lib",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Title.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Implementation.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/Project/Project Document/SplashDemo.java",
+		"/C/Users/Trevor Takawira/Documents/NetBeansProjects/SignStreamer/src/signstreamer/SignStreamer.java",
+		"/C/Users/Trevor Takawira/Documents/NetBeansProjects/SignStreamer/src/signstreamer/FileStreamer.java",
+		"/C/projects/todo/app.db",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Challenge-require.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/ChallengeRequireExample/Program.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/ChallengeRequireExample/Form1.Designer.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/ChallengeRequireExample/Form1.cs",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Acknowledgements.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Project.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Proposal.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Abstract.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/References.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Methodology.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/LiteratureReview.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Appendix.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Conclusion.tex",
+		"/C/Users/Trevor Takawira/Documents/Second Semester/document/Design.tex",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/instasharp.vshost.exe.manifest",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/MainWindow.xaml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/Views/ProfileView.xaml",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/Users/Trevor Takawira/Desktop/framefx.cmd",
+		"/D/Series/Altered.Carbon.S01.720p.NF.WEB-DL.MkvCage/Altered.Carbon.S01E01.Out.of.the.Past.720p.NF.WEB-DL.MkvCage.srt",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/bin/Debug/state.bin",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp.v11.suo",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/Earthquake/Earthquake/MainWindow.xaml",
+		"/C/projects/lab_entry_log/dbConnectAnd/MainWindow.xaml.cs",
+		"/C/projects/lab_entry_log/dbConnectAnd/dbOperations.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/Views/OfflineProfileView.xaml",
+		"/D/Received/Stand Up Comedy about Religion - YouTube.WEBM",
+		"/D/stuff/ISO/Hirens.BootCD.15.2/BurnToCD.cmd",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/line-awesome/css/line-awesome.css",
+		"/C/projects/lab_entry_log/ICT Security system/Form2.Designer.cs",
+		"/C/projects/lab_entry_log/ICT Security system/Program.cs",
+		"/C/projects/lab_entry_log/ICT Security system/ICT Security system.csproj",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/Stories.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/FAQ.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/Helpers/UriCreator.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/UploadPhoto.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/UwpExample/App.xaml.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/UwpExample/Helper.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/UwpExample/MainPage.xaml.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/UwpExample/MainPage.xaml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/SaveLoadState.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/samples/Examples/Samples/Basics.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper.wiki/Home.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper.wiki/How-to-use-library-features.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Save-Load-session.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper/API/IInstaApi.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper/API/InstaApi.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/Classes/Result.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/API/IInstaApi.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp/src/InstagramApiSharp/API/InstaApi.cs",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/jQuery-Snap-Scrolling-Plugin-For-Single-Page-Website-snapscroll/README.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/InstagramApp/InstaApiDocs/InstagramApiSharp.wiki/Account.md",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper.Examples/InstaSharper.Examples.v11.suo",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper.Examples/InstaSharper.Examples.sln",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper.Examples/InstaSharper.Examples.csproj",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/ProfileWindow.xaml.cs",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/ProfileWindow.xaml",
+		"/C/projects/cv_site/index.html",
+		"/D/stuff/Doccies/fontawesome.com/1.css",
+		"/D/stuff/Doccies/fontawesome.com/2.css",
+		"/D/stuff/Doccies/fontawesome.com/3.css",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/instasharp/MainView.xaml",
+		"/C/Users/Trevor Takawira/Documents/Visual Studio 2012/Projects/instasharp/InstaSharper/InstaSharper.Examples/packages.config",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/jQuery-Snap-Scrolling-Plugin-For-Single-Page-Website-snapscroll/demo/index.html",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/Scrollify-master/README.md",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/jQuery-Plugin-For-Animated-Vertical-Scroll-Snapping-Scrollsnap/index.html",
+		"/C/projects/cv_site/css/base.css",
+		"/C/projects/cv_site/jQuery-Plugin-For-Scroll-And-Snap-Functionality-Scroll-Snap/demo.html",
+		"/C/Users/Trevor Takawira/Downloads/SHAREit/NOKIA RM-977_1021/file/jQuery-Snap-Scrolling-Plugin-For-Single-Page-Website-snapscroll/demo/template/javascripts/template.js"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Program Files (x86)/EasyPHP-Devserver-17/eds-modules/phpmyadmin470x190625102229/config.inc.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4861,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								701,
+								701
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 179.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/xampp/htdocs/dashboard/stylesheets/all.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 481698,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2778.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Trevor Takawira/Documents/Net Core/webApp/Program.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 33.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.markdown":
+	{
+		"height": 114.0
+	},
+	"pinned_build_system": "",
+	"project": "instasharp.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 174.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
