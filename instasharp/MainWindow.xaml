@@ -5,13 +5,13 @@
         xmlns:vm="clr-namespace:instasharp"
         xmlns:lib="clr-namespace:instasharp.Views"
         Icon="/assets/logo.ico"
-        Title="InstaWPF" Height="750" Width="1250">
+        Title="InstaWPF" Height="750" Width="1250" WindowStartupLocation="CenterScreen" WindowState="Maximized">
   
     <Window.Resources>
         <vm:ViewModel x:Key="_model"/>
         <vm:joinConverter x:Key="joinConverter" />
         <DataTemplate x:Key="MainView" DataType="{x:Type vm:ViewModel}">
-            <vm:MainView/>
+            <lib:MainView/>
         </DataTemplate>
         <DataTemplate x:Key="ProfileView" DataType="{x:Type vm:ViewModel}" >
             <vm:ProfileView />
@@ -35,7 +35,7 @@
             <vm:CommentsView />
         </DataTemplate>
         <DataTemplate x:Key="LikersView" DataType="{x:Type vm:ViewModel}">
-            <vm:LikersView />
+            <lib:LikersView />
         </DataTemplate>
         <BlurEffect x:Key="Blur" Radius="5"></BlurEffect>
         <Style TargetType="DockPanel" x:Key="styleBlur">

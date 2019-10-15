@@ -18,12 +18,18 @@ using System.Drawing;
 using System.Net;
 
 namespace instasharp
+
+    /*
+     * ViewModel class provides data to the application 
+     * Should be separated into different views at later stage
+     */
 {
     public class ViewModel : INotifyPropertyChanged 
     {
 
         protected User _currentUser;
-        
+
+        //Command for liking a post
         private ICommand _likePicCommand;
         public ICommand likePic {
             get { return _likePicCommand; }
@@ -33,6 +39,7 @@ namespace instasharp
             }
         }
 
+        //Command to collapse the sidebar menu
         private ICommand _collapseMenu;
         public ICommand collapseMenu {
             get { return _collapseMenu; }
@@ -41,7 +48,8 @@ namespace instasharp
                 OnPropertyChanged("collapseMenu");
             }
         }
-
+        
+        //Command to show the sidebar menu
         private bool _showMenu = false;
         public bool showMenu
         {
@@ -52,6 +60,7 @@ namespace instasharp
             }
         }
 
+        //Command to toggle between different views
         private ICommand _changeView;
         public ICommand changeView
         {
@@ -62,6 +71,7 @@ namespace instasharp
             }
         }
 
+        //Int pointing to currently selected view
         private int _selectedView = 1;
         public int selectedView
         {
@@ -72,6 +82,7 @@ namespace instasharp
             }
         }
 
+        //int pointing to currently selected view in childwindow modal
         private int _selectedPopup = 2;
         public int selectedPopup
         {
@@ -81,7 +92,8 @@ namespace instasharp
                 OnPropertyChanged("selectedPopup");
             }
         }
-
+        
+        //Command to initiate function that loads comments for particular post
         private ICommand _loadComment;
         public ICommand loadComment 
         {
@@ -92,6 +104,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to load list of likers for a post 
+        /// </summary>
         private ICommand _loadLiker;
         public ICommand loadLiker 
         {
@@ -102,6 +117,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to close the childwindow popup
+        /// </summary>
         private ICommand _closePopup;
         public ICommand closePopup {
             get { return _closePopup; }
@@ -111,6 +129,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to initiate login procedure in homepage
+        /// </summary>
         private ICommand _login;
         public ICommand login
         {
@@ -122,6 +143,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to load followers for current selected profile
+        /// </summary>
         private ICommand _loadFollower;
         public ICommand loadFollower
         {
@@ -133,6 +157,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to load followers of current selected profile
+        /// </summary>
         private ICommand _loadFollowee;
         public ICommand loadFollowee
         {
@@ -144,6 +171,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Command to show the login window in child window modal
+        /// </summary>
         private ICommand _loadLogin;
         public ICommand loadLogin
         {
@@ -162,10 +192,13 @@ namespace instasharp
             set
             {
                 _loadDetails = value;
-                OnPropertyChanged("loadLogin");
+                OnPropertyChanged("loadDetails");
             }
         }
 
+        /// <summary>
+        /// Command to save media from current post
+        /// </summary>
         private ICommand _saveMedia;
         public ICommand saveMedia
         {
@@ -177,35 +210,53 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Collection hosting feed posts for current user
+        /// </summary>
         private ObservableCollection<Post> _feedPosts = new ObservableCollection<Post>();
         public ObservableCollection<Post> feedPosts
         {
             get { return _feedPosts; }
         }
 
+        /// <summary>
+        /// Collection hosting likers for current post
+        /// </summary>
         private ObservableCollection<string> _likers = new ObservableCollection<string>();
         public ObservableCollection<string> likers
         {
             get { return _likers; }
         }
 
+        /// <summary>
+        /// collection hosting comments for current post
+        /// </summary>
         private ObservableCollection<Comment> _comments = new ObservableCollection<Comment>();
         public ObservableCollection<Comment> comments
         {
             get { return _comments; }
         }
 
+        /// <summary>
+        /// Collection for the activity feed of current logged in user
+        /// </summary>
         private ObservableCollection<string> _likeActivity = new ObservableCollection<string>();
         public ObservableCollection<string>  likeActivity 
         {
             get { return _likeActivity; }
         }
 
+        /// <summary>
+        /// Collection for profile posts of current user
+        /// </summary>
         private ObservableCollection<Post> _posts = new ObservableCollection<Post>();
         public ObservableCollection<Post> posts {
             get { return _posts; }
         }
 
+        /// <summary>
+        /// Variable for holding the details of current logged in user
+        /// </summary>
         private UserDetails _userDetails = new UserDetails();
         public UserDetails userDetails
         {
@@ -217,6 +268,10 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Toggle for the child window modal
+        /// Bound to the visibilty property of childwindow
+        /// </summary>
         private string _popupShow = "Visible";
         public string popupShow
         {   get { return _popupShow; }
@@ -226,6 +281,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Self explanatory
+        /// </summary>
         private string _userName;
         public string userName
         {
@@ -237,6 +295,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Self explanatory
+        /// </summary>
         private string _profilePicUrl;
         public string profilePicUrl
         {
@@ -247,6 +308,9 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Self explanatory
+        /// </summary>
         private int _userLogin = 1;
         public int userLogin 
         {
@@ -257,12 +321,18 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// Self explanatory
+        /// </summary>
         public SecureString SecurePassword
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// String containing the error message 
+        /// </summary>
         private string _errorMessage;
         public string errorMessage 
         {
@@ -308,15 +378,14 @@ namespace instasharp
                  catch (System.NullReferenceException e) {
                      //System.Windows.MessageBox.Show("Error in Sending Request: Check your connection and try again");
                      userLogin = 3;
-                 }
-
-                 
+                 }   
              }
-
-             //MediaElementPro me = new MediaElementPro();
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"> Username for current user trying to login</param>
         public void Login(string username){
             
             _currentUser = new User(username, SecurePassword);
@@ -504,6 +573,11 @@ namespace instasharp
             }
         }
 
+        /// <summary>
+        /// An async function that populates the collection comments <see cref=""/>
+        /// </summary>
+        /// <param name="mediaID"> Unique identifier for a post</param>
+        /// <returns></returns>
         private async Task populateComments(string mediaID)
         {
             _comments.Clear();
@@ -585,41 +659,89 @@ namespace instasharp
             var result = Task.Run(() => _currentUser.likePost(mediaID)).GetAwaiter().GetResult();
         }
 
+        /// <summary>
+        /// Initiates and completes the download of an image.
+        /// </summary>
+        /// <param name="url"> Location of desiredd image </param>
+        /// <returns></returns>
         public async Task getImage(string url)
         {
-            Image image = await downloadMedia(url);
+            Bitmap image = await downloadMedia(url);
 
-            string rootpath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string rootpath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-            string filepath = System.IO.Path.Combine(rootpath + @"\Pictures\Saved Pictures\image.jpg");
+            string filename = RandomString();
 
-            image.Save(filepath, System.Drawing.Imaging.ImageFormat.Jpeg);
+            string filepath = System.IO.Path.Combine(rootpath + @"\Saved Pictures\" + filename);
 
+            if (image != null)
+            {
+                try
+                {
+                    image.Save(filepath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                catch (System.Runtime.InteropServices.ExternalException)
+                {
+
+                }
+                catch (ArgumentNullException)
+                {
+
+                }
+            }
         }
 
-        public Task<Image> downloadMedia(string url) 
+        
+        /// <summary>
+        /// Streams the image into a bitmap variable
+        /// </summary>
+        /// <param name="url">Location of media in post</param>
+        /// <returns>Bitmap data for the downloaded image</returns>
+        private Task<Bitmap> downloadMedia(string url) 
         {
-            Image image = null;
+            Bitmap image;
 
             try
             {
-                HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-                webrequest.AllowWriteStreamBuffering = true;
-                webrequest.Timeout = 50000;
+                WebClient client = new WebClient();
+                Stream str = client.OpenRead(url);
 
-                WebResponse webresponse = webrequest.GetResponse();
-                System.IO.Stream stream =  webresponse.GetResponseStream();
+                image = new Bitmap(str);
 
-                image = Image.FromStream(stream);
-
-                webresponse.Close();
             }
-            catch (Exception e) 
+            catch (Exception) 
             {
                 return null;
             }
 
             return Task.Run(() => { return image; });
+        }
+
+        /// <summary>
+        /// Generates a random string to be used as name for downloaded media
+        /// Function uses a stringbuilder
+        /// A number is generated and and converted to equivalent unicode character
+        /// Character is appended to stringbuilder
+        /// </summary>
+        /// <returns> String of random characters</returns>
+        public string RandomString()
+        {
+            var rand = new Random();
+            StringBuilder sb = new StringBuilder();
+
+            char ch;
+
+            for (int i = 0; i < 11; i++)
+            {
+                //Generate a number and convert it to equivalent unicode chararacter
+                //ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * rand.NextDouble() + 65)));
+                ch = Convert.ToChar(Convert.ToInt32(i));
+                sb.Append(ch);
+            }
+
+            sb.Append(".jpg");
+            return sb.ToString().ToLower();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -633,7 +755,9 @@ namespace instasharp
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class joinConverter : IMultiValueConverter {
 
         public object Convert(object[] values, Type targetType, object parameter,
@@ -647,6 +771,5 @@ namespace instasharp
             throw new NotImplementedException();
         }
 
-    
     }
 }

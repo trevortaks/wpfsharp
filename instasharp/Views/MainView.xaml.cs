@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using instasharp;
 
-namespace instasharp
+namespace instasharp.Views
 {
     /// <summary>
     /// Interaction logic for MainView.xaml

@@ -55,9 +55,9 @@ namespace instasharp
 
         private void meVideo_Loaded_1(object sender, RoutedEventArgs e)
         {
-            MediaElementPro me = (MediaElementPro)sender;
-            me.Play();
-            me.Pause();
+            //MediaElementPro me = (MediaElementPro)sender;
+            //me.Play();
+            //me.Pause();
         }
     }
 }

@@ -196,7 +196,7 @@ namespace instasharp
 
 
         public async Task<IResult<InstaFeed>> getFeed() {
-            var userFeed = await _instaApi.FeedProcessor.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(5));
+            var userFeed = await _instaApi.FeedProcessor.GetUserTimelineFeedAsync(PaginationParameters.Empty);
             return userFeed;
         }
 
@@ -242,20 +242,22 @@ namespace instasharp
                 mediaID, 
                 PaginationParameters.MaxPagesToLoad(2)
                 );
+
             return result;
         }
         
-        public async Task uploadPic()
+        public async Task<string> uploadPic()
         {
-            var mediaImage = new InstaImage
+            var mediaImage = new InstaImageUpload
             {
                 Height = 1080,
                 Width = 1080,
                 Uri = new Uri(Path.GetFullPath(@"c:\someawesomepicture.jpg"), UriKind.Absolute).LocalPath
             };
-            //var result = await _instaApi.MediaProcessor.UploadPhotoAsync(mediaImage, "someawesomepicture");
-            //var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
+            var result = await _instaApi.MediaProcessor.UploadPhotoAsync(mediaImage, "someawesomepicture");
+            var str = result.Succeeded ? result.Value.Pk : result.Info.Message;
 
+            return str;
         }
 
         
