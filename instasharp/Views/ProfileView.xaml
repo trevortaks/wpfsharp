@@ -1,11 +1,17 @@
-﻿<UserControl x:Class="instasharp.ProfileView"
+﻿<UserControl x:Class="instasharp.Views.ProfileView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{md:MaterialDesignFont}"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="#eee">
+    <Grid>
         <StackPanel Orientation="Vertical">
             <!--<ItemsControl ></ItemsControl>-->
             <DockPanel Name="spProfileHeader" Height="100" Margin="0,50,0,10" VerticalAlignment="Top">

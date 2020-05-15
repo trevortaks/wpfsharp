@@ -3,20 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mekit="clr-namespace:MediaElementKit;assembly=MediaElementKit"
-             xmlns:vm="clr-namespace:instasharp"
-             xmlns:carousel="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
+             xmlns:views="clr-namespace:instasharp.Views.SubViews"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            FontFamily="{md:MaterialDesignFont}"
+             Background="{DynamicResource MaterialDesignPaper}">
     <UserControl.Resources>
         <DataTemplate x:Key="FeedView" DataType="{x:Type vm:ViewModel}">
-            <vm:FeedView />
+            <views:FeedView />
         </DataTemplate>
         
     </UserControl.Resources>
     <Grid Name="gdMain">
         <!--<ScrollViewer VerticalScrollBarVisibility="Auto" Background="#eee" DockPanel.Dock="Right" >-->
-            <ContentControl x:Name="ccMain" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
+            <ContentControl x:Name="ccMain" HorizontalAlignment="Center" Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl" >
                         <!--<Setter Property="ContentTemplate" Value="{StaticResource lblTxt}"/>-->

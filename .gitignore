@@ -4,3 +4,9 @@
 /instasharp/bin/
 .idea/
 instasharpTest/obj/
+ViewModel/obj/
+ViewModel/bin/
+Models/obj/
+Models/bin/
+.vs/
+.idea/

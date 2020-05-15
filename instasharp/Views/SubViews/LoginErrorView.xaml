@@ -4,14 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{md:MaterialDesignFont}"
+             Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="#eee">
+    <Grid>
         <Border>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="You are not logged in." FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Label Content="Please Log In to view feed" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Label Content="You can still view other profiles and the explore feed" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Width="100" Height="40"  Background="Blue">
+                <!--<Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Width="100" Height="40"  Background="Blue">
                     <Button Content="Login" Name="btnLoginErr" Background="Transparent" Foreground="White" FontSize="15" BorderBrush="Transparent" Click="btnLoginErr_Click"
                             Command="{Binding DataContext.loadLogin, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
                             CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
@@ -29,7 +35,10 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                </Border>
+                </Border>-->
+                <Button Content="Login" Name="btnLoginErr" Click="btnLoginErr_Click" Width="100" Height="40" FontSize="15"
+                            Command="{Binding DataContext.loadLogin, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" 
+                            CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"></Button>
             </StackPanel>
         </Border>
     </Grid>

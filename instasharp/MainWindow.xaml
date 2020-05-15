@@ -1,23 +1,43 @@
 ﻿<Window x:Class="instasharp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:instasharp"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
-        xmlns:vm="clr-namespace:instasharp"
+        xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:lib="clr-namespace:instasharp.Views"
-        Icon="/assets/logo.ico"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{md:MaterialDesignFont}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="InstaWPF" Height="750" Width="1250" WindowStartupLocation="CenterScreen" WindowState="Maximized">
-  
+
     <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+       
         <vm:ViewModel x:Key="_model"/>
-        <vm:joinConverter x:Key="joinConverter" />
         <DataTemplate x:Key="MainView" DataType="{x:Type vm:ViewModel}">
-            <lib:MainView/>
+            <lib:MainView />
         </DataTemplate>
         <DataTemplate x:Key="ProfileView" DataType="{x:Type vm:ViewModel}" >
-            <vm:ProfileView />
+            <lib:ProfileView />
         </DataTemplate>
         <DataTemplate x:Key="ActivityView" DataType="{x:Type vm:ViewModel}" >
-            <vm:ActivityView />
+            <lib:ActivityView />
         </DataTemplate>
         <DataTemplate x:Key="ExploreView" DataType="{x:Type vm:ViewModel}" >
             <lib:ExploreView />
@@ -26,13 +46,13 @@
             <lib:MessageView />
         </DataTemplate>
         <DataTemplate x:Key="SidebarView" DataType="{x:Type vm:ViewModel}">
-            <vm:SidebarView />
+            <lib:SidebarView />
         </DataTemplate>
         <DataTemplate x:Key="LoginView" DataType="{x:Type vm:ViewModel}">
-            <vm:LoginView />
+            <lib:LoginView />
         </DataTemplate>
         <DataTemplate x:Key="CommentsView" DataType="{x:Type vm:ViewModel}">
-            <vm:CommentsView />
+            <lib:CommentsView />
         </DataTemplate>
         <DataTemplate x:Key="LikersView" DataType="{x:Type vm:ViewModel}">
             <lib:LikersView />
@@ -46,11 +66,16 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-       
     </Window.Resources>
-
-    <Grid Background="Black" Name="gridHome" >
-
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu" >
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu" >
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
         <xctk:ChildWindow Visibility="{Binding popupShow}" Margin="0,0,20,20" WindowBackground="#eee" 
                           CloseButtonClicked="closeButton_Click" IsModal="True" WindowStartupLocation="Center">
             <xctk:ChildWindow.Effect>
@@ -79,38 +104,150 @@
                     </Border>
                 </Grid>
         </xctk:ChildWindow>
-        <DockPanel x:Name="dpDock" Style="{StaticResource styleBlur}">
-            <!--<DockPanel.Style ></DockPanel.Style>-->
-
-            <ContentControl DockPanel.Dock="Left" Name="ccSidebar" ContentTemplate="{StaticResource SidebarView}" 
-                           Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}"/>
-
-            <ContentControl DockPanel.Dock="Left" Name="ccMainPanel" 
-                            Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
-                        <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding selectedView}" Value="1">
-                                <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding selectedView}" Value="2">
-                                <Setter Property="ContentTemplate" Value="{StaticResource ProfileView}"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding selectedView}" Value="3">
-                                <Setter Property="ContentTemplate" Value="{StaticResource ActivityView}"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding selectedView}" Value="4">
-                                <Setter Property="ContentTemplate" Value="{StaticResource ExploreView}"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding selectedView}" Value="5">
-                                <Setter Property="ContentTemplate" Value="{StaticResource MessageView}"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>
-            
+        <DockPanel x:Name="dpDock" Style="{StaticResource styleBlur}" >
+            <Grid x:Name="TitleBar" DockPanel.Dock="Top" Height="70" VerticalAlignment="Top" Background="MediumPurple">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="{StaticResource Billabong}">
+                    <md:PackIcon Kind="Instagram" /> InstaWPF
+                </TextBlock>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock VerticalAlignment="Center" FontSize="18" Text="{Binding userName}"></TextBlock>
+                    <md:PopupBox  Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                        <StackPanel Width="150">
+                            <Button Command="{Binding DataContext.LoadProfile, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}">
+                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                                        <Binding Source="2" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                                <TextBlock Margin="10 0 0 0"><md:PackIcon Kind="FaceProfile" /> Profile</TextBlock>
+                            </Button>
+                            <Button >
+                            <TextBlock Margin="10 0 0 0"><md:PackIcon Kind="Settings" /> Settings</TextBlock>
+                            </Button>
+                            <Button>
+                            <TextBlock Margin="10 0 0 0"><md:PackIcon Kind="Help" /> Help</TextBlock>
+                            </Button>
+                            <Button>
+                                <TextBlock Margin="10 0 0 0"><md:PackIcon Kind="About" /> About</TextBlock>
+                            </Button>
+                            <Separator />
+                            <Button>
+                                <TextBlock Margin="10 0 0 0"><md:PackIcon Kind="Logout" /> Logout</TextBlock>
+                            </Button>
+                         </StackPanel>
+                    </md:PopupBox>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="GridMenu" DockPanel.Dock="Left" Width="60" HorizontalAlignment="Left" Background="MediumPurple">
+                <StackPanel>
+                    <Grid Height="150">
+                        <Button x:Name="ButtonCloseMenu" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
+                            <md:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                        </Button>
+                        <Button x:Name="ButtonOpenMenu"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonOpenMenu_Click">
+                            <md:PackIcon Kind="Menu" Width="25" Height="25"/>
+                        </Button>
+                    </Grid>
+                    <ListView Background="MediumPurple" Foreground="{DynamicResource MaterialDesignBody}" FontFamily="{md:MaterialDesignFont}" ScrollViewer.HorizontalScrollBarVisibility="Hidden"> 
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ViewDashboard" Margin="10"  Width="25" Height="25" VerticalAlignment="Center"/>
+                                <TextBlock  VerticalAlignment="Center" Margin="20 10">Home</TextBlock>
+                            </StackPanel>
+                                <ListViewItem.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" 
+                                          Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}">
+                                        <MouseBinding.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" Path="DataContext" />
+                                                <Binding Source="1" />
+                                            </MultiBinding>
+                                        </MouseBinding.CommandParameter>
+                                    </MouseBinding>
+                                </ListViewItem.InputBindings>
+                         </ListViewItem>
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Star" Margin="10"  Width="25" Height="25" VerticalAlignment="Center"/>
+                                <TextBlock VerticalAlignment="Center" Margin="20 10">Activity</TextBlock>
+                            </StackPanel>
+                            <ListViewItem.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" 
+                                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                                    <MouseBinding.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                                            <Binding Source="3" />
+                                        </MultiBinding>
+                                    </MouseBinding.CommandParameter>
+                                </MouseBinding>
+                            </ListViewItem.InputBindings>
+                        </ListViewItem>
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Tv" Margin="10"  Width="25" Height="25" VerticalAlignment="Center"/>
+                                <TextBlock Text="Explore" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                            <ListViewItem.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" 
+                                    Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                                    <MouseBinding.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                                            <Binding Source="4" />
+                                        </MultiBinding>
+                                    </MouseBinding.CommandParameter>
+                                </MouseBinding>
+                            </ListViewItem.InputBindings>
+                        </ListViewItem>
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Message" Margin="10"  Width="25" Height="25" VerticalAlignment="Center"/>
+                                <TextBlock Text="Messaging" VerticalAlignment="Center" Margin="20 10"/>
+                            </StackPanel>
+                            <ListViewItem.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" 
+                                        Command="{Binding DataContext.changeView, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                                    <MouseBinding.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DockPanel}}" Path="DataContext" />
+                                            <Binding Source="5" />
+                                        </MultiBinding>
+                                    </MouseBinding.CommandParameter>
+                                </MouseBinding>
+                            </ListViewItem.InputBindings>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="MainView">
+                <ContentControl  Name="ccMainPanel" 
+                                Content="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding selectedView}" Value="1">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource MainView}"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding selectedView}" Value="2">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource ProfileView}"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding selectedView}" Value="3">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource ActivityView}"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding selectedView}" Value="4">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource ExploreView}"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding selectedView}" Value="5">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource MessageView}"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>
