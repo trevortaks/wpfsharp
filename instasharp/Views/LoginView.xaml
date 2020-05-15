@@ -1,32 +1,83 @@
-﻿<UserControl x:Class="instasharp.LoginView"
+﻿<UserControl x:Class="instasharp.Views.LoginView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:instasharp"
-             mc:Ignorable="d" Height="318" Width="499">
+             mc:Ignorable="d" Height="318" Width="499"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            FontFamily="{md:MaterialDesignFont}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             >
+    <UserControl.Resources>
+        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+            <ColorAnimationUsingKeyFrames 
+                Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+                BeginTime="-0:0:0.5"
+                >
+                <ColorAnimationUsingKeyFrames.KeyFrames>
+                    <LinearColorKeyFrame KeyTime="0:0:1" Value="#FFFF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:3" Value="#FF00FF" />
+                    <LinearColorKeyFrame KeyTime="0:0:5" Value="#00FF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:7" Value="#00FFFF" />
+                    <LinearColorKeyFrame KeyTime="0:0:9" Value="#0000FF" />
+                    <LinearColorKeyFrame KeyTime="0:0:11" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:13" Value="#FFFF00" />
+                </ColorAnimationUsingKeyFrames.KeyFrames>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames 
+                Storyboard.TargetProperty="(Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+                >
+                <ColorAnimationUsingKeyFrames.KeyFrames>
+                    <LinearColorKeyFrame KeyTime="0:0:0" Value="#FFFF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:2" Value="#FF00FF" />
+                    <LinearColorKeyFrame KeyTime="0:0:4" Value="#00FF00" />
+                    <LinearColorKeyFrame KeyTime="0:0:6" Value="#00FFFF" />
+                    <LinearColorKeyFrame KeyTime="0:0:8" Value="#0000FF" />
+                    <LinearColorKeyFrame KeyTime="0:0:10" Value="#0000AA" />
+                    <LinearColorKeyFrame KeyTime="0:0:12" Value="#FFFF00" />
+                </ColorAnimationUsingKeyFrames.KeyFrames>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" x:Key="Brush">
+            <GradientStop Offset="0"  />
+            <GradientStop Offset="1" />
+        </LinearGradientBrush>
+        <Style x:Key="style" TargetType="FrameworkElement">
+            <Setter Property="Grid.Background" Value="{StaticResource Brush}" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded" >
+                    <BeginStoryboard Storyboard="{StaticResource GradientAnimation}">
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     
     <Grid Name="gdMain" Style="{StaticResource style}">
 
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="InstaWPF" FontFamily="{StaticResource Billabong}"
                    VerticalAlignment="Top" Height="50" Width="150" FontSize="40" TextAlignment="Center"/>
-        <Label Content="Username" Margin="105,80,258,0" VerticalAlignment="Top" Height="50" FontSize="20" FontFamily="{StaticResource Aveny}"/>
+        <Label Content="Username" Margin="105,80,258,0" VerticalAlignment="Top" Height="50" FontSize="20" FontFamily="{md:MaterialDesignFont}"/>
         <TextBox Name="txtUname" HorizontalAlignment="Left" Height="30" Margin="315,80,0,0" VerticalContentAlignment="Center"
-                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextAlignment="Left" FontSize="20" FontFamily="{StaticResource Aveny}"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="105,150,0,0" VerticalAlignment="Top" Width="140" FontSize="20" FontFamily="{StaticResource Aveny}"/>
-        <PasswordBox x:Name="pwdPwd" HorizontalAlignment="Left" Margin="315,150,0,0" HorizontalContentAlignment="Left"
-                     VerticalAlignment="Top" Width="120" Height="30" VerticalContentAlignment="Center" />
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextAlignment="Left" FontSize="20" FontFamily="{md:MaterialDesignFont}"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="105,150,0,0" VerticalAlignment="Top" Width="140" FontSize="20" FontFamily="{md:MaterialDesignFont}"/>
+        <PasswordBox Name="pwdPwd" HorizontalAlignment="Left" Margin="315,150,0,0" HorizontalContentAlignment="Left"
+                     VerticalAlignment="Top" Width="120" Height="30" VerticalContentAlignment="Center" Password="tsitsiscoco"/>
         
         <Label Content ="{Binding errorMessage}" HorizontalAlignment="Center" FontSize="15" Height="46" Margin="105,0,64,83" 
                VerticalAlignment="Bottom" Width="330" HorizontalContentAlignment="Center"/>
         
-        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Right" Margin="0,240,200,0" VerticalAlignment="Top" Width="100" Height="30"
-                Command="{Binding DataContext.login, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" FontSize="20" FontFamily="{StaticResource Aveny}">
+        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Right" Margin="0,240,200,0" VerticalAlignment="Top" Width="100" Height="40" md:ButtonAssist.CornerRadius="5"
+                Command="{Binding DataContext.LoginAction, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" FontSize="20" FontFamily="{md:MaterialDesignFont}">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource ResourceKey=joinConverter}" >
                     <Binding RelativeSource="{RelativeSource AncestorType={x:Type Grid}}" Path="DataContext" />
                     <Binding ElementName="txtUname" Path="Text"  Mode="OneWay"/>
-                    <Binding ElementName="pwdPwd"  Mode="OneWay" />
+                    <Binding ElementName="pwdPwd" Path="SecurePassword"   Mode="OneWay" />
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>

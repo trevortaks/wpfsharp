@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-  <Relationship Type="http://schemas.microsoft.com/packaging/2010/07/manifest" Target="/Vlc.DotNet.Wpf.nuspec" Id="Reba92d827a474e81" />
-  <Relationship Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="/package/services/metadata/core-properties/a0628a64fb1e4717b38268459c1d375c.psmdcp" Id="Re0d0a4866afc475c" />
-</Relationships>
